@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-4">
+
+  <!-- Navigation Ecommerce -->
+  <h3 class="text-uppercase">Order items:</h3>
+  <hr>
+
+  <!-- Main page -->
+  <div class="container rounded">
+    <div class="row justify-content-between">
+
+      <!-- Cart items -->
+      <div class="col-md-9 px-2">
+        {% for order_item in object.items.all %}
+        <!-- Item1 -->
+        <div class="bg-light border rounded mx-auto my-2">
+          <div class="row">
+
+            <!-- Image -->
+            <div class="col-sm-4 col-lg-3">
+              <div class="d-none d-sm-block my-3 ml-3">
+                <img class="img-size-xs rounded" style="border: 2px solid black;"
+                  src="{{ order_item.item.image.url }}" alt="{{ order_item.item.title }}" />
+              </div>
+            </div>
+
+            <!-- Info -->
+            <div class="col-md-7 col-sm-6 col-lg-8 col-10">
+              <div class="d-flex align-items-center flex-column py-3 pl-3 my-auto my-3 h-100">
+                <div class="h4 w-100 font-weight-bold"><a
+                    href="{{ order_item.item.get_absolute_url }}">{{ order_item.item.title }}</a></div>
+                <div class="d-flex h5 w-100 justify-content-between">
+                  <div>Unit Price:</div>
+                  <div>${{ order_item.item.price }}</div>
+                </div>
+                <div class="w-100">
+                  <hr class="my-2" />
+                </div>
+                <div class="d-flex h5 w-100 justify-content-between">
+                  <div>Subtotal:</div>
+                  <div>${{ order_item.item.price }}</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Delete -->
+            <div class="col-md-1 col-2 p-1 align-self-center">
+              <a class="btn" href="{{ order_item.item.get_remove_from_cart_url }}">
+                <img src="{% static 'ico/trash_can.svg' %}" alt="Trash can" />
+              </a>
+            </div>
+
+          </div>
+        </div>
+        {% empty %}
+        <div class="jumbotron jumbotron-fluid my-2">
+          <div class="container text-center">
+            <h1 class="display-4">You have not added any items.</h1>
+            <p class="lead">Go to the "PRODUCTS" section, select a product and add it to your cart!</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="col-md-3 my-2 px-2">
+        <div class="bg-light border rounded p-3 mx-auto">
+          <h4><strong>Order Summary</strong></h4>
+          <div class="d-flex justify-content-between">
+            <div class="py-1">Subtotal:</div>
+            <div class="py-1">${{ object.get_total }}</div>
+          </div>
+          <hr />
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="py-1 h5"><strong>Total:</strong></div>
+            <div class="py-1 h4">${{ object.get_total }}</div>
+          </div>
+
+          <a href="#" class="btn btn-primary btn-lg btn-block">Buy</a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main page -->
+
+</div>
+{% endblock content %}

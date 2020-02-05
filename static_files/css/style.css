@@ -1,0 +1,56 @@
+.btn-default {
+  position: relative;
+  padding: 0;
+  border: 0;
+}
+
+.btn-default:after {
+  content: "\A";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+
+.btn-default:hover:after {
+  opacity: 1;
+}
+
+.img-size {
+  max-width: 400px;
+  max-height: 400px;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.img-size-sm {
+  width: 238px;
+  height: 238px;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.img-size-lg {
+  max-width: 700px;
+  max-height: 700px;
+  min-height: 200px;
+  min-width: 200px;;
+}
+
+.img-size-xs {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.hr-bold {
+  border: none;
+  height: 1px;
+  background-color: gray;
+}
