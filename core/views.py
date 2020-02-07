@@ -1,11 +1,12 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, View
-from .models import Item, Order, OrderItem
-from django.utils import timezone
-from django.contrib import messages
 from django.db.models import Q
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
+from django.views.generic import ListView, View
+
+from .models import Item, Order, OrderItem
 
 
 def home(request):
@@ -43,11 +44,11 @@ def item_detail(request, slug):
     }
     return render(request, 'item_detail.html', context)
 
-# ===================================================================================
+# ============================================================================
 
 
 # adding item to cart. Give function a request and slug(Primary key for
-#  Generic views)
+# Generic views)
 @login_required(redirect_field_name='/')
 def add_to_cart(request, slug):
 
@@ -95,7 +96,7 @@ def add_to_cart(request, slug):
 
     return redirect("core:products")
 
-# ======================================================================================
+# =============================================================================
 
 # Removing item from cart. Give function a request and slug(Primary key for
 # Generic views)

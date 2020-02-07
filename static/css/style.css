@@ -36,10 +36,10 @@
 }
 
 .img-size-lg {
-  max-width: 600px;
-  max-height: 600px;
-  overflow: hidden;
-  object-fit: cover;
+  max-width: 700px;
+  max-height: 700px;
+  min-height: 200px;
+  min-width: 200px;;
 }
 
 .img-size-xs {
@@ -49,3 +49,8 @@
   object-fit: cover;
 }
 
+.hr-bold {
+  border: none;
+  height: 1px;
+  background-color: gray;
+}
