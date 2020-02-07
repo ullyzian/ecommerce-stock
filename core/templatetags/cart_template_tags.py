@@ -1,6 +1,6 @@
 from django import template
-from core.models import Order, OrderItem, Item
-from django.shortcuts import render, get_object_or_404
+
+from core.models import Order
 
 register = template.Library()
 

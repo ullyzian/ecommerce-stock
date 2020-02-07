@@ -1,13 +1,16 @@
-from django.db import models
 from django.conf import settings
-from django.shortcuts import reverse
 from django.core.validators import FileExtensionValidator
+from django.db import models
+from django.shortcuts import reverse
+
 
 class Category(models.Model):
     title = models.CharField(max_length=40)
 
     def __str__(self):
         return self.title
+
+# ,dfsdjfhjsdkhfsdjfhjsdkhfsdjfhjsdkhfsdjfhjsdkhfsdjfhjsdkhfsdjfhjsdkhfsdjfhjsdkhfsdjfhjsdkhfsdjfhjsdkhf
 
 
 class Item(models.Model):
@@ -16,8 +19,13 @@ class Item(models.Model):
     title = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=5, decimal_places=2, default=1.00)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    description = models.TextField(default="Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur id est at, iure itaque temporibus aliquid minima qui illo sed velit labore animi! Voluptates, delectus eaque cum quaerat itaque amet")
-    image = models.FileField(upload_to='images/', max_length=100, blank=True, null=True, validators=[FileExtensionValidator(allowed_extensions=['pdf', 'png', 'jpeg', 'jpg'])])
+    description = models.TextField(
+        default="Lorem")
+    image = models.FileField(
+        upload_to='images/', max_length=100, blank=True, null=True,
+        validators=[
+            FileExtensionValidator(
+                allowed_extensions=['pdf', 'png', 'jpeg', 'jpg'])])
     slug = models.SlugField()
 
     def __str__(self):
