@@ -14,8 +14,7 @@ settings_command = [
 
 # Database server
 
-# Ref: https://docs.microsoft.com/en-gb/cli/azure/postgres/server?view=azure-cli-latest#az-postgres-server-create
-# SKUs: https://docs.microsoft.com/en-us/azure/postgresql/concepts-pricing-tiers
+# SKUs: https://docs.microsoft.com/en-us/azure/postgresql/concepts-pricing-tier
 #       {pricing tier}_{compute generation}_{vCores}
 create_server_command = [
     'az', 'postgres', 'server', 'create',
@@ -29,7 +28,6 @@ create_server_command = [
 
 # Firewall
 
-# Ref: https://docs.microsoft.com/en-gb/cli/azure/postgres/server/firewall-rule?view=azure-cli-latest#az-postgres-server-firewall-rule-create
 azure_firewall_command = [
     'az', 'postgres', 'server', 'firewall-rule', 'create',
     '--resource-group', os.getenv('AZ_GROUP'),

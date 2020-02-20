@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 import os
-import subprocess
-import sys
 
 # # pass in shell=True if on windows (Note security hazard)
 # with open('cli-log.txt', 'w') as f:
@@ -13,7 +11,7 @@ import sys
 # process3 = subprocess.run(['ls', 'la', 'dne'], stderr=subprocess.DEVNULL)
 
 # process4 = subprocess.run(['grep', '-n', 'cli-log'],
-#                           capture_output=True, text=True, input=process3.stdout)
+#                      capture_output=True, text=True, input=process3.stdout)
 
 # print(process.args)  # arguments
 # print(process.returncode)  # 0 means successful

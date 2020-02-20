@@ -6,11 +6,13 @@ from django.shortcuts import reverse
 
 class Category(models.Model):
     title = models.CharField(max_length=40)
+    slug = models.SlugField()
 
     def __str__(self):
         return self.title
 
-# ,dfsdjfhjsdkhfsdjfhjsdkhfsdjfhjsdkhfsdjfhjsdkhfsdjfhjsdkhfsdjfhjsdkhfsdjfhjsdkhfsdjfhjsdkhfsdjfhjsdkhf
+    def get_absolute_url(self):
+        return reverse("core:category-list", kwargs={"slug": self.slug})
 
 
 class Item(models.Model):
@@ -22,7 +24,7 @@ class Item(models.Model):
     description = models.TextField(
         default="Lorem")
     image = models.FileField(
-        upload_to='images/', max_length=100, blank=True, null=True,
+        upload_to='images/', max_length=100, default="/static/img/animal.jpg",
         validators=[
             FileExtensionValidator(
                 allowed_extensions=['pdf', 'png', 'jpeg', 'jpg'])])

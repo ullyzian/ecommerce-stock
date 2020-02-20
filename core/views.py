@@ -5,8 +5,9 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.generic import ListView, View
+from django.http import JsonResponse
 
-from .models import Item, Order, OrderItem
+from .models import Item, Order, OrderItem, Category
 
 
 def home(request):
@@ -18,14 +19,57 @@ class ItemsView(ListView):
     paginate_by = 9
     template_name = 'items_list.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
+
 
 class OrderSummaryView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
-        order = Order.objects.get(user=self.request.user, ordered=False)
+        if Order.objects.filter(
+                user=self.request.user, ordered=False).exists():
+            order = Order.objects.get(user=self.request.user, ordered=False)
+        else:
+            return render(self.request, 'order_summary.html')
         context = {
-            'object': order,
+            'object': order.items.all(),
+            'order': order,
         }
         return render(self.request, 'order_summary.html', context)
+
+
+def category_list(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    context = {
+        'object_list': Item.objects.filter(category__exact=category),
+        'categories': Category.objects.all()
+    }
+    return render(request, 'search.html', context)
+
+
+def filter_category(request):
+    category = Category.get()
+    data = {
+        'filter_category': Item.category.filter(category__iexact=category)
+    }
+    return JsonResponse(data)
+
+
+class SearchResultsView(ListView):
+    model = Item
+    template_name = 'search.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        return Item.objects.filter(
+            Q(title__icontains=query) | Q(category__title__icontains=query)
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
 
 
 def item_detail(request, slug):
@@ -95,7 +139,7 @@ def add_to_cart(request, slug):
             request, 'Order has been created and item has been added!')
 
     return redirect("core:products")
-
+    
 # =============================================================================
 
 # Removing item from cart. Give function a request and slug(Primary key for
@@ -141,17 +185,6 @@ def remove_from_cart(request, slug):
     return redirect("core:order-summary")
 
 # ========================================================================
-
-
-class SearchResultsView(ListView):
-    model = Item
-    template_name = 'search.html'
-
-    def get_queryset(self):
-        query = self.request.GET.get('q')
-        return Item.objects.filter(
-            Q(title__icontains=query)
-        )
 
 
 def checkout_detail(request):
