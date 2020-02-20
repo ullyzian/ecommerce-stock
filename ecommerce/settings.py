@@ -5,6 +5,7 @@ import django_heroku
 ENVIRONMENT = os.environ.get('ENVIRONMENT', 'development')
 
 DEBUG = True
+SECRET_KEY = '-05sgp9!deq=q1nltm@^^2cc+v29i(tyybv3v2t77qi66czazj'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ALLOWED_HOSTS = ['istorno.herokuapp.com']
 
@@ -23,6 +24,7 @@ INSTALLED_APPS = [
     'crispy_forms',
 
     'core',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +60,8 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Account
 LOGIN_REDIRECT_URL = '/products'
