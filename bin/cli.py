@@ -105,7 +105,8 @@ def main(check_env, deploying):
         subprocess.check_call(connect_details_command)
 
         # Connect to Azure using connection string format (to force SSL)
-        # psql "host=$POSTGRES_HOST sslmode=require port=5432 user=$POSTGRES_ADMIN_USER@$POSTGRES_SERVER_NAME dbname=postgres" -W
+        # psql "host=$POSTGRES_HOST sslmode=require port=5432
+        # user=$POSTGRES_ADMIN_USER@$POSTGRES_SERVER_NAME dbname=postgres" -W
 
     update_azure_env = input("Update the azure environment? [y/n]: ")
     if update_azure_env == 'y':

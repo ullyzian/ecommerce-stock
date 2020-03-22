@@ -47,11 +47,6 @@
             </a>
           </li>
 
-          <!-- Blog -->
-          <li class="nav-item ml-3">
-            <a class="nav-link text-uppercase" href="/blog">Blog</a>
-          </li>
-
           <!-- Categories -->
           <li class="nav-item dropdown btn-group ml-3">
             <a class="nav-link text-uppercase pr-0" href="{% url 'core:products' %}">Products</a>
@@ -113,6 +108,7 @@
               {% if user.is_staff %}
               <a class="dropdown-item" href="/admin">Admin</a>
               {% endif %}
+              <a class="dropdown-item" href="{% url 'core:account-info' %}">Profile</a>
               <a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a>
             </div>
           </li>

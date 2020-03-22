@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Order - iStorno" %}{% endblock %}
 
 {% block content %}
 
@@ -73,7 +76,7 @@
           <div class="py-1 h4">${{ order.get_total }}</div>
         </div>
 
-        <a href="#" class="btn btn-primary btn-lg btn-block">Buy</a>
+        <a href="{% url 'core:checkout' %}" class="btn btn-primary btn-lg btn-block">Buy</a>
 
       </div>
     </div>

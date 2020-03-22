@@ -67,5 +67,3 @@ connect_details_command = [
     '--name', os.getenv('POSTGRES_SERVER_NAME'),
 ]
 
-
-# TODO: add a Storage CLI command

@@ -14,6 +14,11 @@ def home(request):
     return render(request, 'home.html')
 
 
+@login_required
+def account_info(request):
+    return render(request, 'account/account_info.html')
+
+
 class ItemsView(ListView):
     model = Item
     paginate_by = 9
@@ -139,7 +144,7 @@ def add_to_cart(request, slug):
             request, 'Order has been created and item has been added!')
 
     return redirect("core:products")
-    
+
 # =============================================================================
 
 # Removing item from cart. Give function a request and slug(Primary key for

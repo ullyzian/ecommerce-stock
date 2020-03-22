@@ -1,16 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
+{% block head_title %}{% trans "Checkout - iStorno" %}{% endblock %}
 {% block content %}
 
 <!-- Navigation Ecommerce -->
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb h4">
-        <li class="breadcrumb-item"><a href="{% url 'core:order-summary' %}">Shopping cart</a></li>
-        <li class="breadcrumb-item active">Checkout details</li>
-        <li class="breadcrumb-item"><a href="#" onclick="return false;">Order complete</a></li>
-    </ol>
-</nav>
+<h3 class="text-uppercase">Checkout:</h3>
+<hr>
 
 <!-- Billing details form -->
 <div class="row">
