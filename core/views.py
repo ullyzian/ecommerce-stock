@@ -8,10 +8,40 @@ from django.views.generic import ListView, View
 from django.http import JsonResponse
 
 from .models import Item, Order, OrderItem, Category
+from .forms import CheckoutForm
 
 
 def home(request):
     return render(request, 'home.html')
+
+
+class CheckoutView(LoginRequiredMixin, View):
+    def get(self, *args, **kwargs):
+        form = CheckoutForm
+        if Order.objects.filter(user=self.request.user,
+                                ordered=False).exists():
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            if not order.items.exists():
+                return redirect('core:order-summary')
+        else:
+            return redirect('core:products')
+
+        context = {
+            'form': form,
+            'order': order
+        }
+
+        return render(self.request, 'checkout.html', context)
+
+    def post(self, *args, **kwargs):
+        form = CheckoutForm(self.request.POST or None)
+        print(self.request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            return redirect('core:checkout')
+
+        messages.warning(self.request, "Invalid form input")
+        return redirect('core:checkout')
 
 
 @login_required
@@ -190,10 +220,6 @@ def remove_from_cart(request, slug):
     return redirect("core:order-summary")
 
 # ========================================================================
-
-
-def checkout_detail(request):
-    return render(request, 'checkout_detail.html')
 
 
 def privacy_policy(request):

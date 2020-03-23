@@ -55,3 +55,7 @@
   height: 1px;
   background-color: gray;
 }
+
+#id_expiration_day {
+  display: none;
+}
