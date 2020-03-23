@@ -27,7 +27,7 @@
           <!-- Image -->
           <div class="col-sm-4 col-lg-3">
             <div class="d-none d-sm-block my-3 ml-3">
-              <img class="img-size-xs rounded" style="border: 2px solid black;" src="{{ order_item.item.image.url }}"
+              <img class="img-size-xs rounded border" src="{{ order_item.item.image.url }}"
                 alt="{{ order_item.item.title }}" />
             </div>
           </div>
@@ -54,7 +54,7 @@
           <!-- Delete -->
           <div class="col-md-1 col-2 p-1 align-self-center">
             <a class="btn" href="{{ order_item.item.get_remove_from_cart_url }}">
-              <img src="{% static 'ico/trash_can.svg' %}" alt="Trash can" />
+              <i class="fa fa-trash"></i>
             </a>
           </div>
 

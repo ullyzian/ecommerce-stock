@@ -14,7 +14,7 @@
   {% block extra_head %}
   {% endblock %}
   <!-- Links -->
-  <link rel="shortcut icon" href="">
+  <link rel="stylesheet" href="{% static 'css/fontawesome.css' %}">
   <link rel="manifest" href="{% static 'manifest.json' %}">
   <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
@@ -75,7 +75,7 @@
             <a class="nav-link text-uppercase pr-0" href="{% url 'core:order-summary' %}">
               <span class="badge badge-primary badge-pill">{{ request.user|cart_item_count }}
               </span>
-              <img src="{% static 'ico/shopping_cart.svg' %}" alt="shopping cart" />
+              <i class="fa fa-shopping-cart"></i>
               Cart
             </a>
             <a class="nav-link dropdown-toggle pl-1" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">
