@@ -48,6 +48,17 @@
                         </div>
                         {% endif %}
 
+                        <div class="current-card-form">
+                            <form action="." method="post" class="stripe-form">
+                                {% csrf_token %}
+                                <input type="hidden" name="use_default" value="true">
+                                <div class="stripe-form-row">
+                                    <button id="stripeBtn">Submit Payment</button>
+                                </div>
+                                <div id="card-errors" role="alert"></div>
+                            </form>
+                        </div>
+
 
                         <div class="new-card-form">
                             <form action="." method="POST" class="stripe-form" id="stripe-form">
@@ -58,7 +69,7 @@
                                     </label>
 
                                     <div id="card-element" class="StripeElement">
-                                        
+
                                     </div>
                                 </div>
                                 <div class="stripe-form-row">

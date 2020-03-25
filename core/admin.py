@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from .models import Category, Item, Order, OrderItem, Payment
+from .models import Category, Item, Order, OrderItem, Payment, UserProfile
 
 
+@admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
     fields = (
         'title',
@@ -15,12 +16,29 @@ class ItemAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
 
 
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
 
 
-admin.site.register(OrderItem)
-admin.site.register(Order)
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Item, ItemAdmin)
-admin.site.register(Payment)
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user', 'ordered', 'ordered_date']
+    list_filter = (
+        ('items', admin.RelatedOnlyFieldListFilter),
+    )
+
+
+@admin.register(Payment)
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ['stripe_charge_id', 'user', 'amount']
+
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ['id', 'item', 'user', 'ordered']
+
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ['stripe_customer_id', 'user']

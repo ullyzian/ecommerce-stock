@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.messages import constants as message_constants
 
 # Directories
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

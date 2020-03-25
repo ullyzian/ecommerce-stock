@@ -5893,17 +5893,17 @@ a.badge-dark.focus {
   color: #533f03;
 }
 
-.alert-danger {
+.alert-error {
   color: #721c24;
   background-color: #f8d7da;
   border-color: #f5c6cb;
 }
 
-.alert-danger hr {
+.alert-error hr {
   border-top-color: #f1b0b7;
 }
 
-.alert-danger .alert-link {
+.alert-error .alert-link {
   color: #491217;
 }
 

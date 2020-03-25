@@ -8,7 +8,8 @@ from django.views.generic import ListView, View
 from django.http import JsonResponse
 from django.conf import settings
 import stripe
-from .models import Item, Order, OrderItem, Category, Payment
+from .models import Item, Order, OrderItem, Category, Payment, UserProfile
+from .forms import PaymentForm
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -19,8 +20,7 @@ def home(request):
 
 class PaymentView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
-        if Order.objects.filter(user=self.request.user,
-                                ordered=False).exists():
+        if Order.objects.filter(user=self.request.user, ordered=False).exists():
             order = Order.objects.get(user=self.request.user, ordered=False)
             if not order.items.exists():
                 return redirect('core:order-summary')
@@ -31,22 +31,54 @@ class PaymentView(LoginRequiredMixin, View):
             'order': order,
         }
 
+        userprofile = self.request.user.userprofile
+        if userprofile.one_click_purchasing:
+            cards = stripe.Customer.list_sources(
+                userprofile.stripe_customer_id,
+                limit=3,
+                object='card'
+            )
+            card_list = cards['data']
+            if len(card_list) > 0:
+                context.update({
+                    'card': card_list[0]
+                })
+
         return render(self.request, 'payment.html', context)
 
     def post(self, *args, **kwargs):
         order = Order.objects.get(user=self.request.user, ordered=False)
-        token = self.request.POST.get('stripeToken')
-        amount = int(order.get_total() * 100)
-        print()
+        form = PaymentForm(self.request.POST)
+        userprofile = UserProfile.objects.get(user=self.request.user)
+        if form.is_valid():
+            token = form.cleaned_data.get('stripeToken')
+            save = form.cleaned_data.get('save')
+            use_default = form.cleaned_data.get('use_default')
+
+            if save:
+                customer = stripe.Customer.create(
+                    email=self.request.user.email,
+                )
+                customer.sources.create(source=token)
+                userprofile.stripe_customer_id = customer['id']
+                userprofile.one_click_purchasing = True
+                userprofile.save()
+
+            amount = int(order.get_total() * 100)
 
         try:
-            # Use Stripe's library to make requests...
-            charge = stripe.Charge.create(
-                amount=amount,
-                currency="usd",
-                source=token
-            )
-
+            if use_default or save:
+                charge = stripe.Charge.create(
+                    amount=amount,
+                    currency="usd",
+                    customer=userprofile.stripe_customer_id
+                )
+            else:
+                charge = stripe.Charge.create(
+                    amount=amount,
+                    currency="usd",
+                    source=token
+                )
             # Create an payment
             payment = Payment()
             payment.stripe_charge_id = charge['id']
@@ -54,43 +86,55 @@ class PaymentView(LoginRequiredMixin, View):
             payment.amount = order.get_total()
             payment.save()
 
-            # assign the payment to order
+            # Assign the payment to order and order items
+            for order_item in order.items.all():
+                order_item.ordered = True
+                order_item.save()
             order.ordered = True
             order.payment = payment
             order.save()
 
             messages.success(self.request, "Charge successfully completed")
             return redirect('core:products')
+
         except stripe.error.CardError as e:
             # Since it's a decline, stripe.error.CardError will be caught
             body = e.json_body
             err = body.get('error', {})
             messages.error(self.request, f"{err.get('message')}")
             return redirect("/")
+
         except stripe.error.RateLimitError:
             messages.error(self.request, "Rate limit error")
             return redirect("/")
+
         except stripe.error.InvalidRequestError:
             messages.error(self.request, "Invalid parametrs")
+
         except stripe.error.AuthenticationError:
             messages.error(self.request, "Not authenticated")
             return redirect("/")
+
         except stripe.error.APIConnectionError:
             messages.error(self.request, "Network error")
             return redirect("/")
+
         except stripe.error.StripeError:
             messages.error(self.request,
                            "Something wen wrong. You were not charged.")
             return redirect("/")
+
         except Exception:
             messages.error(self.request, "Serious error is occured.")
-            return redirect("/")
             # send email with bug
 
 
 @login_required
 def account_info(request):
-    return render(request, 'account/account_info.html')
+    context = {
+        'profile': UserProfile.objects.filter(user=request.user)
+    }
+    return render(request, 'account/account_info.html', context)
 
 
 class ItemsView(ListView):

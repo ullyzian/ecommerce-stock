@@ -45,13 +45,6 @@ var form = document.getElementById('stripe-form');
 form.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    var form = document.getElementById('stripe-form');
-    var hiddenInput = document.createElement('input');
-    hiddenInput.setAttribute("type", "hidden");
-    hiddenInput.setAttribute("name", "stripeToken1");
-    hiddenInput.setAttribute("value", "govno");
-    form.appendChild(hiddenInput);
-
     stripe.createToken(card).then(function (result) {
         if (result.error) {
             // Inform the user if there was an error.
