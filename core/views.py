@@ -6,18 +6,19 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.generic import ListView, View
 from django.http import JsonResponse
+from django.conf import settings
+import stripe
+from .models import Item, Order, OrderItem, Category, Payment
 
-from .models import Item, Order, OrderItem, Category
-from .forms import CheckoutForm
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def home(request):
     return render(request, 'home.html')
 
 
-class CheckoutView(LoginRequiredMixin, View):
+class PaymentView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
-        form = CheckoutForm
         if Order.objects.filter(user=self.request.user,
                                 ordered=False).exists():
             order = Order.objects.get(user=self.request.user, ordered=False)
@@ -27,21 +28,64 @@ class CheckoutView(LoginRequiredMixin, View):
             return redirect('core:products')
 
         context = {
-            'form': form,
-            'order': order
+            'order': order,
         }
 
-        return render(self.request, 'checkout.html', context)
+        return render(self.request, 'payment.html', context)
 
     def post(self, *args, **kwargs):
-        form = CheckoutForm(self.request.POST or None)
-        print(self.request.POST)
-        if form.is_valid():
-            print(form.cleaned_data)
-            return redirect('core:checkout')
+        order = Order.objects.get(user=self.request.user, ordered=False)
+        token = self.request.POST.get('stripeToken')
+        amount = int(order.get_total() * 100)
+        print()
 
-        messages.warning(self.request, "Invalid form input")
-        return redirect('core:checkout')
+        try:
+            # Use Stripe's library to make requests...
+            charge = stripe.Charge.create(
+                amount=amount,
+                currency="usd",
+                source=token
+            )
+
+            # Create an payment
+            payment = Payment()
+            payment.stripe_charge_id = charge['id']
+            payment.user = self.request.user
+            payment.amount = order.get_total()
+            payment.save()
+
+            # assign the payment to order
+            order.ordered = True
+            order.payment = payment
+            order.save()
+
+            messages.success(self.request, "Charge successfully completed")
+            return redirect('core:products')
+        except stripe.error.CardError as e:
+            # Since it's a decline, stripe.error.CardError will be caught
+            body = e.json_body
+            err = body.get('error', {})
+            messages.error(self.request, f"{err.get('message')}")
+            return redirect("/")
+        except stripe.error.RateLimitError:
+            messages.error(self.request, "Rate limit error")
+            return redirect("/")
+        except stripe.error.InvalidRequestError:
+            messages.error(self.request, "Invalid parametrs")
+        except stripe.error.AuthenticationError:
+            messages.error(self.request, "Not authenticated")
+            return redirect("/")
+        except stripe.error.APIConnectionError:
+            messages.error(self.request, "Network error")
+            return redirect("/")
+        except stripe.error.StripeError:
+            messages.error(self.request,
+                           "Something wen wrong. You were not charged.")
+            return redirect("/")
+        except Exception:
+            messages.error(self.request, "Serious error is occured.")
+            return redirect("/")
+            # send email with bug
 
 
 @login_required

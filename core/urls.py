@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import (
     ItemsView, OrderSummaryView, SearchResultsView, add_to_cart,
-    CheckoutView, home, item_detail, privacy_policy, remove_from_cart,
+    PaymentView, home, item_detail, privacy_policy, remove_from_cart,
     category_list, account_info)
 
 app_name = 'core'
@@ -14,9 +14,9 @@ urlpatterns = [
     path('order-summary/', OrderSummaryView.as_view(), name='order-summary'),
     path('add-to-cart/<slug>/', add_to_cart, name='add-to-cart'),
     path('remove-from-cart/<slug>', remove_from_cart, name='remove-from-cart'),
-    path('checkout/', CheckoutView.as_view(), name='checkout'),
+    path('payment/', PaymentView.as_view(), name='payment'),
     path('privacy-policy/', privacy_policy, name='privacy-policy'),
     path('search/', SearchResultsView.as_view(), name='search'),
     path('category-list/<slug>/', category_list, name='category-list'),
-    path('accounts/general/', account_info, name='account-info')
+    path('accounts/general/', account_info, name='account-info'),
 ]

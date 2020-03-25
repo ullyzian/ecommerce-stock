@@ -14,6 +14,7 @@ ALLOWED_HOSTS = []
 load_dotenv(DOTENV_DIR)
 ENVIRONMENT = os.environ.get('ENVIRONMENT')
 SECRET_KEY = os.environ.get('SECRET_KEY')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 DEBUG = True
 
 if ENVIRONMENT == 'production':

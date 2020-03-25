@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{% trans "Payment - iStorno" %}{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/stripe.css' %}">
+<script src="https://js.stripe.com/v3/"></script>
+{% endblock extra_head %}
+
+
+{% block content %}
+
+<!-- Navigation Ecommerce -->
+<h3 class="text-uppercase">Payment:</h3>
+<hr>
+
+<!-- Billing details form -->
+<div class="row">
+    <section class="col-9">
+        <article class="card bg-light">
+            <div class="card-body p-5">
+                <ul class="nav bg-white border nav-pills rounded nav-fill mb-3" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="pill" href="#nav-tab-card">
+                            <i class="fa fa-credit-card"></i> Stripe</a>
+                    <li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#nav-tab-paypal">
+                            <i class="fab fa-paypal"></i> Paypal</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="nav-tab-card">
+
+                        {% if card %}
+                        <div style="padding: 5px 30px;">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" name="use_default_card"
+                                    id="use_default_card">
+                                <label class="custom-control-label" for="use_default_card">Use default card:
+                                    **** **** **** {{ card.last4 }}
+                                    <span>Exp: {{ card.exp_month }}/{{ card.exp_year }}</span></label>
+                            </div>
+                        </div>
+                        {% endif %}
+
+
+                        <div class="new-card-form">
+                            <form action="." method="POST" class="stripe-form" id="stripe-form">
+                                {% csrf_token %}
+                                <div class="stripe-form-row" id="creditCard">
+                                    <label for="card-element" id="stripeBtnLabel">
+                                        Credit or debit card
+                                    </label>
+
+                                    <div id="card-element" class="StripeElement">
+                                        
+                                    </div>
+                                </div>
+                                <div class="stripe-form-row">
+                                    <button id="stripeBtn">Submit Payment</button>
+                                </div>
+                                <div class="stripe-form-row">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" name="save"
+                                            id="save_card_info">
+                                        <label class="custom-control-label" for="save_card_info">Save for future
+                                            purchases</label>
+                                    </div>
+                                </div>
+                                <div id="card-errors" role="alert"></div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-tab-paypal">
+                        <p>Paypal is easiest way to pay online</p>
+                        <p>
+                            <button type="button" class="btn btn-primary"> <i class="fab fa-paypal"></i> Log in my
+                                Paypal
+                            </button>
+                        </p>
+                        <p><strong>Note:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                            eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </article>
+    </section>
+
+    <!-- Sidebar order total -->
+    <aside class="col-3">
+        <div class="border rounded p-3 bg-light">
+            <h4 class="text-uppercase mb-3">Your order</h4>
+
+            {% for order_item in order.items.all %}
+            <hr>
+            <div class="d-flex justify-content-between">
+                <div>{{ order_item.item.title }}</div>
+                <div>${{ order_item.item.price }}</div>
+            </div>
+            {% endfor %}
+            <hr class="hr-bold">
+            <div class="d-flex justify-content-between h4 font-weight-bold">
+                <div>Total</div>
+                <div>${{ order.get_total }}</div>
+            </div>
+        </div>
+    </aside>
+</div>
+
+{% block javascript %}
+<script src="{% static 'js/client.js' %}"></script>
+{% endblock javascript %}
+
+{% endblock content %}
