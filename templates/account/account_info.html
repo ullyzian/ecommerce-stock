@@ -9,11 +9,8 @@
 <div class="container bg-light px-5 py-4 border rounded">
     <h1>{% trans "Account Info" %}</h1>
     <hr>
-    <h5 class="font-weight-bold">First name:
-        <span class="font-weight-normal">{{ user.first_name }}</span>
-    </h5>
-    <h5 class="font-weight-bold">Second name:
-        <span class="font-weight-normal">{{ user.second_name }}</span>
+    <h5 class="font-weight-bold">Full name:
+        <span class="font-weight-normal">{{ user.first_name }} {{ user.second_name }}</span>
     </h5>
     <h5 class="font-weight-bold">Username: 
         <span class="font-weight-normal">{{ user.username }}</span>
@@ -27,4 +24,4 @@
     </h5>
     {% endif %}
 
-    {% endblock profile %}
+{% endblock profile %}

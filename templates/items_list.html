@@ -11,12 +11,11 @@
     <section class="col-md" style="min-height: 800px;">
         <!-- Search bar -->
         <div class="my-2 row justify-content-center">
-            <form class="form-inline input-group my-lg-0 col-8" action="{% url 'core:search' %}"
-                method="GET">
+            <form class="form-inline input-group my-lg-0 col-8" action="{% url 'core:search' %}" method="GET">
                 <input type="text" name="q" class="form-control" placeholder="Search..." />
                 <div class="input-group-append">
                     <button class="btn btn-secondary" type="submit">
-                         <i class="fa fa-search"></i>
+                        <i class="fa fa-search"></i>
                     </button>
                 </div>
             </form>
@@ -32,7 +31,7 @@
 
                     <!-- Popup button-image -->
                     <button class="btn-default" type="button" data-toggle="modal" data-target="#Modal-{{ item.slug }}">
-                        <img class="card-img-top img-size-sm" src="{{ item.image.url }}" alt="{{ item.title }}">
+                        <img class="card-img-top img-size-sm" src="{{ item.image_free.url }}" alt="{{ item.title }}">
                     </button>
 
                     <!-- Popup info -->
@@ -51,7 +50,7 @@
                                 <!-- Popup body -->
                                 <div class="modal-body row mx-3">
                                     <div class="col-lg-7 col-md-12 mb-2">
-                                        <img class="card-img-top img-size" src="{{ item.image.url }}"
+                                        <img class="card-img-top img-size" src="{{ item.image_free.url }}"
                                             alt="{{ item.title }}">
                                     </div>
                                     <div class="col-lg-5 col-md-12 text-left">
@@ -67,19 +66,10 @@
                                 <div class="modal-footer px-1">
                                     <button type="button" class="btn btn-lg btn-secondary px-2"
                                         data-dismiss="modal">Close</button>
-                                    <a type="button" href="{{ item.get_absolute_url }}"
+                                    <a href="{{ item.get_absolute_url }}"
                                         class="btn btn-lg btn-primary px-2">Details</a>
-
-                                    {% if in_cart %}
-                                    <a type="button" href="{{ item.get_remove_from_cart_url }}"
-                                        class="btn btn-lg btn-danger px-2">Remove from
+                                    <a href="{{ item.get_add_to_cart_url }}" class="btn btn-lg btn-primary px-2">Add to
                                         cart</a>
-                                    {% else %}
-                                    <a type="button" href="{{ item.get_add_to_cart_url }}"
-                                        class="btn btn-lg btn-primary px-2">Add to
-                                        cart</a>
-                                    {% endif %}
-
                                 </div>
 
                             </div>
@@ -87,9 +77,21 @@
                     </div>
 
                     <!-- Item body -->
-                    <div class="card-body">
-                        <a class="card-title card-link h5" href="{{ item.get_absolute_url }}">{{ item.title }}</a>
-                        <p class="mt-2 card-text">Price: ${{ item.price }}</p>
+                    <div class="card-body pt-2 py-0 border-top">
+                        <div class="card-title">
+                            <a class="card-link h5" href="{{ item.get_absolute_url }}">{{ item.title }}</a>:
+                            <span class="my-0 card-text">
+                                {% if item.price == 0.00 %}Free
+                                <div class="mt-1"><a href="#" class="btn btn-sm btn-primary m-0">Download</a>
+                                </div>
+                                {% else %}${{ item.price }}
+                                <div class="mt-1"><a href="{{ item.get_add_to_cart_url }}"
+                                        class="btn btn-sm btn-primary m-0">Add to cart</a>
+                                </div>
+                                {% endif %}
+                            </span>
+                        </div>
+
                     </div>
                 </div>
             </div>

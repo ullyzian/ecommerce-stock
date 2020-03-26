@@ -1,10 +1,10 @@
 import os
 from dotenv import load_dotenv
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.messages import constants as message_constants
 
 # Directories
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ZIP_DIR = os.path.dirname("/tmp")
 DOTENV_DIR = os.path.join(BASE_DIR, '.env')
 ROOT_URLCONF = 'ecommerce.urls'
 
@@ -104,6 +104,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "media/zip")
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

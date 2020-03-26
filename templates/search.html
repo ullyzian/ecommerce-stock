@@ -32,7 +32,7 @@
 
                     <!-- Popup button-image -->
                     <button class="btn-default" type="button" data-toggle="modal" data-target="#Modal-{{ item.slug }}">
-                        <img class="card-img-top img-size-sm" src="{{ item.image.url }}" alt="{{ item.title }}">
+                        <img class="card-img-top img-size-sm" src="{{ item.image_free.url }}" alt="{{ item.title }}">
                     </button>
 
                     <!-- Popup info -->
@@ -51,7 +51,7 @@
                                 <!-- Popup body -->
                                 <div class="modal-body row mx-3">
                                     <div class="col-lg-7 col-md-12 mb-2">
-                                        <img class="card-img-top img-size" src="{{ item.image.url }}"
+                                        <img class="card-img-top img-size" src="{{ item.image_free.url }}"
                                             alt="{{ item.title }}">
                                     </div>
                                     <div class="col-lg-5 col-md-12 text-left">

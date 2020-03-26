@@ -1,3 +1,4 @@
+from zipfile import ZipFile
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -5,17 +6,44 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.generic import ListView, View
-from django.http import JsonResponse
+from django.http import JsonResponse, FileResponse
 from django.conf import settings
 import stripe
 from .models import Item, Order, OrderItem, Category, Payment, UserProfile
 from .forms import PaymentForm
+
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def home(request):
     return render(request, 'home.html')
+
+
+@login_required
+def saved_cards_list(request):
+    userprofile = request.user.userprofile
+    if userprofile.one_click_purchasing:
+        cards = stripe.Customer.list_sources(
+            userprofile.stripe_customer_id,
+            limit=3,
+            object='card'
+        )
+        card_list = cards['data']
+        if len(card_list) > 0:
+            context = {
+                'card': card_list[0]
+            }
+    return render(request, 'account/saved_cards.html', context)
+
+
+@login_required
+def purchases_list(request):
+    order_qs = Order.objects.filter(user=request.user, ordered=True)
+    if order_qs.exists():
+        order = order_qs.order_by('-id')
+        return render(request, 'account/purchases.html', {'orders': order})
+    return render(request, 'account/purchases.html')
 
 
 class PaymentView(LoginRequiredMixin, View):
@@ -48,85 +76,118 @@ class PaymentView(LoginRequiredMixin, View):
 
     def post(self, *args, **kwargs):
         order = Order.objects.get(user=self.request.user, ordered=False)
-        form = PaymentForm(self.request.POST)
-        userprofile = UserProfile.objects.get(user=self.request.user)
-        if form.is_valid():
-            token = form.cleaned_data.get('stripeToken')
-            save = form.cleaned_data.get('save')
-            use_default = form.cleaned_data.get('use_default')
+        zip_path = f'media/zip/{order.user}-{order.id}.zip'
+        zip_filename = f'{order.user}-{order.id}.zip'
 
-            if save:
-                customer = stripe.Customer.create(
-                    email=self.request.user.email,
-                )
-                customer.sources.create(source=token)
-                userprofile.stripe_customer_id = customer['id']
-                userprofile.one_click_purchasing = True
-                userprofile.save()
+        with ZipFile(zip_path, 'w') as zipObj:
+            for order_item in order.items.all():
+                zipObj.write(order_item.item.image_paid.url[1:])
 
-            amount = int(order.get_total() * 100)
-
-        try:
-            if use_default or save:
-                charge = stripe.Charge.create(
-                    amount=amount,
-                    currency="usd",
-                    customer=userprofile.stripe_customer_id
-                )
-            else:
-                charge = stripe.Charge.create(
-                    amount=amount,
-                    currency="usd",
-                    source=token
-                )
-            # Create an payment
-            payment = Payment()
-            payment.stripe_charge_id = charge['id']
-            payment.user = self.request.user
-            payment.amount = order.get_total()
-            payment.save()
-
+        payment_method = self.request.POST.get('payment', '')
+        if (payment_method == 'paypal'):
             # Assign the payment to order and order items
             for order_item in order.items.all():
                 order_item.ordered = True
                 order_item.save()
             order.ordered = True
-            order.payment = payment
             order.save()
+            return render(self.request, "payment_completed.html")
+        else:
+            form = PaymentForm(self.request.POST)
+            userprofile = UserProfile.objects.get(user=self.request.user)
 
-            messages.success(self.request, "Charge successfully completed")
-            return redirect('core:products')
+            if form.is_valid():
+                token = form.cleaned_data.get('stripeToken')
+                save = form.cleaned_data.get('save')
+                use_default = form.cleaned_data.get('use_default')
 
-        except stripe.error.CardError as e:
-            # Since it's a decline, stripe.error.CardError will be caught
-            body = e.json_body
-            err = body.get('error', {})
-            messages.error(self.request, f"{err.get('message')}")
-            return redirect("/")
+                if save:
+                    customer = stripe.Customer.create(
+                        email=self.request.user.email,
+                    )
+                    customer.sources.create(source=token)
+                    userprofile.stripe_customer_id = customer['id']
+                    userprofile.one_click_purchasing = True
+                    userprofile.save()
 
-        except stripe.error.RateLimitError:
-            messages.error(self.request, "Rate limit error")
-            return redirect("/")
+                amount = int(order.get_total() * 100)
 
-        except stripe.error.InvalidRequestError:
-            messages.error(self.request, "Invalid parametrs")
+            try:
+                if use_default or save:
+                    charge = stripe.Charge.create(
+                        amount=amount,
+                        currency="usd",
+                        customer=userprofile.stripe_customer_id
+                    )
+                else:
+                    charge = stripe.Charge.create(
+                        amount=amount,
+                        currency="usd",
+                        source=token
+                    )
+                # Create an payment
+                payment = Payment()
+                payment.stripe_charge_id = charge['id']
+                payment.user = self.request.user
+                payment.amount = order.get_total()
+                payment.save()
 
-        except stripe.error.AuthenticationError:
-            messages.error(self.request, "Not authenticated")
-            return redirect("/")
+                # Assign the payment to order and order items
+                for order_item in order.items.all():
+                    order_item.ordered = True
+                    order_item.save()
+                order.ordered = True
+                order.payment = payment
+                order.save()
 
-        except stripe.error.APIConnectionError:
-            messages.error(self.request, "Network error")
-            return redirect("/")
+            except stripe.error.CardError as e:
+                # Since it's a decline, stripe.error.CardError will be caught
+                body = e.json_body
+                err = body.get('error', {})
+                messages.error(self.request, f"{err.get('message')}")
+                return redirect("/")
 
-        except stripe.error.StripeError:
-            messages.error(self.request,
-                           "Something wen wrong. You were not charged.")
-            return redirect("/")
+            except stripe.error.RateLimitError:
+                messages.error(self.request, "Rate limit error")
+                return redirect("/")
 
-        except Exception:
-            messages.error(self.request, "Serious error is occured.")
-            # send email with bug
+            except stripe.error.InvalidRequestError:
+                messages.error(self.request, "Invalid parametrs")
+                return redirect("/")
+
+            except stripe.error.AuthenticationError:
+                messages.error(self.request, "Not authenticated")
+                return redirect("/")
+
+            except stripe.error.APIConnectionError:
+                messages.error(self.request, "Network error")
+                return redirect("/")
+
+            except stripe.error.StripeError:
+                messages.error(self.request,
+                               "Something wen wrong. You were not charged.")
+                return redirect("/")
+
+            except Exception:
+                messages.error(self.request, "Serious error is occured.")
+                return redirect("/")
+                # send email with bug
+
+            return render(self.request, "payment_completed.html")
+
+
+@login_required
+def download_file(request):
+    order_qs = Order.objects.filter(user=request.user, ordered=True)
+    if order_qs.exists():
+        order = order_qs.order_by('-id')[0]
+    zip_path = f'{settings.BASE_DIR}/media/zip/{order.user}-{order.id}.zip'
+    zip_file = open(zip_path, 'rb')
+    return FileResponse(zip_file)
+
+
+def download_free(request):
+    pass
 
 
 @login_required

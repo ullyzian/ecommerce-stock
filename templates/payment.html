@@ -7,7 +7,6 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/stripe.css' %}">
-<script src="https://js.stripe.com/v3/"></script>
 {% endblock extra_head %}
 
 
@@ -35,7 +34,7 @@
 
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="nav-tab-card">
-
+                        
                         {% if card %}
                         <div style="padding: 5px 30px;">
                             <div class="custom-control custom-checkbox">
@@ -55,7 +54,9 @@
                                 <div class="stripe-form-row">
                                     <button id="stripeBtn">Submit Payment</button>
                                 </div>
-                                <div id="card-errors" role="alert"></div>
+                                <small><strong>Note: </strong>
+                                    By submiting your payment you agree to proceed your personal data by this website.
+                                </small>
                             </form>
                         </div>
 
@@ -72,10 +73,8 @@
 
                                     </div>
                                 </div>
-                                <div class="stripe-form-row">
-                                    <button id="stripeBtn">Submit Payment</button>
-                                </div>
-                                <div class="stripe-form-row">
+                                <div id="card-errors" role="alert"></div>
+                                <div class="stripe-form-row mt-4 mb-0 ml-2">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" name="save"
                                             id="save_card_info">
@@ -83,21 +82,40 @@
                                             purchases</label>
                                     </div>
                                 </div>
-                                <div id="card-errors" role="alert"></div>
+                                <div class="stripe-form-row mt-1 ml-2 mb-0">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" name="privacy"
+                                            id="privacy_policy">
+                                        <label class="custom-control-label font-weight-bold" for="privacy_policy">
+                                            I have read and accept
+                                            <a href="{% url 'core:privacy-policy' %}">
+                                                Privacy Policy
+                                            </a>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="stripe-form-row mb-2 mt-0">
+                                    <button id="stripeBtn">Submit Payment</button>
+                                </div>
+                                <small><strong>Note: </strong>
+                                    By submiting your payment you agree to proceed your personal data by this website.
+                                </small>
                             </form>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="nav-tab-paypal">
-                        <p>Paypal is easiest way to pay online</p>
-                        <p>
-                            <button type="button" class="btn btn-primary"> <i class="fab fa-paypal"></i> Log in my
-                                Paypal
-                            </button>
-                        </p>
-                        <p><strong>Note:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                            eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua.
-                        </p>
+                        <div style="padding: 5px 30px;">
+                            <p>Paypal is easiest way to pay online</p>
+                            <form action="." method="POST" id="paypal-form">
+                                {% csrf_token %}
+                                <button type="submit" id="paypalBtn" class="btn btn-primary btn-block">
+                                    <i class="fab fa-paypal"></i>Log in and pay
+                                </button>
+                            </form>
+                            <small><strong>Note: </strong>
+                                By submiting your payment you agree to proceed your personal data by this website.
+                            </small>
+                        </div>
                     </div>
                 </div>
 

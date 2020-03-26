@@ -27,7 +27,7 @@
           <!-- Image -->
           <div class="col-sm-4 col-lg-3">
             <div class="d-none d-sm-block my-3 ml-3">
-              <img class="img-size-xs rounded border" src="{{ order_item.item.image.url }}"
+              <img class="img-size-xs rounded border" src="{{ order_item.item.image_free.url }}"
                 alt="{{ order_item.item.title }}" />
             </div>
           </div>
@@ -86,7 +86,7 @@
       <div class="jumbotron jumbotron-fluid my-2">
         <div class="container text-center">
           <h1 class="display-4">You have not added any items.</h1>
-          <p class="lead">Go to the "PRODUCTS" section, select a product and add it to your cart!</p>
+          <p class="lead">Go to the <a href="{% url 'core:products' %}">"PRODUCTS"</a> section, select a product and add it to your cart!</p>
         </div>
       </div>
     </div>

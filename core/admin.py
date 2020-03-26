@@ -10,7 +10,8 @@ class ItemAdmin(admin.ModelAdmin):
         'category',
         'price',
         'description',
-        'image',
+        'image_free',
+        'image_paid',
         'slug'
     )
     prepopulated_fields = {"slug": ("title",)}

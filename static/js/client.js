@@ -40,16 +40,34 @@ card.addEventListener('change', function (event) {
     }
 });
 
+var formPaypal = document.getElementById('paypal-form');
+formPaypal.addEventListener('submit', function (event) {
+    event.preventDefault()
+
+    var hiddenInputPaypal = document.createElement('input');
+    hiddenInputPaypal.setAttribute("type", "hidden");
+    hiddenInputPaypal.setAttribute("name", "payment");
+    hiddenInputPaypal.setAttribute("value", "paypal");
+    formPaypal.appendChild(hiddenInputPaypal);
+
+    // Submit the form
+    formPaypal.submit();
+})
+
+
 // Handle form submission.
-var form = document.getElementById('stripe-form');
-form.addEventListener('submit', function (event) {
+var formStripe = document.getElementById('stripe-form');
+var privacy = document.getElementById('privacy_policy')
+var errorElement = document.getElementById('card-errors');
+formStripe.addEventListener('submit', function (event) {
     event.preventDefault();
 
     stripe.createToken(card).then(function (result) {
         if (result.error) {
             // Inform the user if there was an error.
-            var errorElement = document.getElementById('card-errors');
             errorElement.textContent = result.error.message;
+        } else if (!privacy.checked) {
+            errorElement.textContent = "Accept privacy policy to proceed the data"
         } else {
             // Send the token to your server.
             stripeTokenHandler(result.token);
@@ -60,15 +78,21 @@ form.addEventListener('submit', function (event) {
 // Submit the form with the token ID.
 function stripeTokenHandler(token) {
     // Insert the token ID into the form so it gets submitted to the server
-    var form = document.getElementById('stripe-form');
+    var formStripe = document.getElementById('stripe-form');
     var hiddenInput = document.createElement('input');
     hiddenInput.setAttribute("type", "hidden");
     hiddenInput.setAttribute("name", "stripeToken");
     hiddenInput.setAttribute("value", token.id);
-    form.appendChild(hiddenInput);
+    formStripe.appendChild(hiddenInput);
+
+    var hiddenInput = document.createElement('input');
+    hiddenInput.setAttribute("type", "hidden");
+    hiddenInput.setAttribute("name", "payment");
+    hiddenInput.setAttribute("value", "stripe");
+    formStripe.appendChild(hiddenInput);
 
     // Submit the form
-    form.submit();
+    formStripe.submit();
 }
 
 var currentCardForm = $('.current-card-form');

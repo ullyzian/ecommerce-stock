@@ -37,11 +37,20 @@ class Item(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2, default=1.00)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.TextField(default="Lorem")
-    image = models.FileField(upload_to='images/', max_length=100, default="/static/img/animal.jpg",
-                             validators=[FileExtensionValidator(
-                                 allowed_extensions=['pdf', 'png', 'jpeg', 'jpg'])]
-                             )
+    image_free = models.FileField(upload_to='images_free/', max_length=100,
+                                  default="/static/img/animal.jpg", validators=[
+                                      FileExtensionValidator(
+                                          allowed_extensions=['pdf', 'png', 'jpeg', 'jpg'])
+                                  ])
+    image_paid = models.FileField(upload_to='images/', max_length=100,
+                                  default="/static/img/animal.jpg", validators=[
+                                      FileExtensionValidator(
+                                          allowed_extensions=['pdf', 'png', 'jpeg', 'jpg'])
+                                  ])
     slug = models.SlugField()
+
+    class Meta:
+        ordering = ['-id']
 
     def __str__(self):
         return self.title

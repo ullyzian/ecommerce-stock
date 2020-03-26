@@ -1,0 +1,16 @@
+{% extends "account/profile.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Saved cards - iStorno" %}{% endblock %}
+
+{% block profile %}
+<div class="container bg-light px-5 py-4 border rounded">
+    <h1 class="text-uppercase">Saved cards</h1>
+    <hr>
+    <div class="border bg-white rounded mb-4 p-3">
+        <div>Card: **** **** **** {{ card.last4 }}</div>
+        <div>Expiration: {{ card.exp_month }}/{{ card.exp_year }}</div>
+    </div>
+</div>
+{% endblock profile %}
