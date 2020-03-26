@@ -11,7 +11,7 @@
         <!-- Search bar -->
         <div class="my-2 row justify-content-center">
             <form class="form-inline input-group my-lg-0 col-8" action="{% url 'core:search' %}" method="GET">
-                <input type="text" name="q" class="form-control" placeholder="Search..." />
+                <input type="text" name="q" class="form-control" placeholder="{% trans 'Search...' %}" />
                 <div class="input-group-append">
                     <button class="btn btn-secondary" type="submit">
                         <i class="fa fa-search"></i>
@@ -19,7 +19,7 @@
                 </div>
             </form>
         </div>
-        <h3 class="text-uppercase">Results:</h3>
+        <h3 class="text-uppercase">{% trans 'Results:' %}</h3>
         <hr>
         <div class="row text-center">
 
@@ -55,10 +55,10 @@
                                             alt="{{ item.title }}">
                                     </div>
                                     <div class="col-lg-5 col-md-12 text-left">
-                                        <div class="mb-1 h4"><strong>Price: </strong>${{ item.price }}</div>
-                                        <div class="mb-1 h4"><strong>Category:
+                                        <div class="mb-1 h4"><strong>{% trans 'Price' %}: </strong>${{ item.price }}</div>
+                                        <div class="mb-1 h4"><strong>{% trans 'Category' %}:
                                             </strong>{{ item.category.title }}</div>
-                                        <div class="mb-1 h4"><strong>Description:
+                                        <div class="mb-1 h4"><strong>{% trans 'Description' %}:
                                             </strong>{{ item.description }}
                                         </div>
                                     </div>
@@ -69,16 +69,14 @@
                                     <button type="button" class="btn btn-lg btn-secondary px-2"
                                         data-dismiss="modal">Close</button>
                                     <a type="button" href="{{ item.get_absolute_url }}"
-                                        class="btn btn-lg btn-primary px-2">Details</a>
+                                        class="btn btn-lg btn-primary px-2">{% trans 'Details' %}</a>
 
                                     {% if in_cart %}
                                     <a type="button" href="{{ item.get_remove_from_cart_url }}"
-                                        class="btn btn-lg btn-danger px-2">Remove from
-                                        cart</a>
+                                        class="btn btn-lg btn-danger px-2">{% trans 'Remove from cart' %}</a>
                                     {% else %}
                                     <a type="button" href="{{ item.get_add_to_cart_url }}"
-                                        class="btn btn-lg btn-primary px-2">Add to
-                                        cart</a>
+                                        class="btn btn-lg btn-primary px-2">{% trans 'Add to cart' %}</a>
                                     {% endif %}
 
                                 </div>
@@ -90,7 +88,7 @@
                     <!-- Item body -->
                     <div class="card-body">
                         <a class="card-title card-link h5" href="{{ item.get_absolute_url }}">{{ item.title }}</a>
-                        <p class="mt-2 card-text">Price: ${{ item.price }}</p>
+                        <p class="mt-2 card-text">{% trans 'Price' %}: ${{ item.price }}</p>
                     </div>
                 </div>
             </div>
@@ -101,8 +99,8 @@
             <div class="col">
                 <div class="jumbotron jumbotron-fluid my-2">
                     <div class="container text-center">
-                        <h1 class="display-4">There are no photos for your request :(</h1>
-                        <p class="lead">Please, search for another photos.</p>
+                        <h1 class="display-4">{% trans 'There are no photos for your request' %}</h1>
+                        <p class="lead">{% trans 'Please, search for another photos' %}</p>
                     </div>
                 </div>
             </div>
@@ -119,11 +117,11 @@
             <ul class="pagination justify-content-center">
                 {% if page_obj.has_previous %}
                 <li class="page-item">
-                    <a class=" page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    <a class=" page-link" href="?page={{ page_obj.previous_page_number }}">{% trans 'Previous' %}</a>
                 </li>
                 {% else %}
                 <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    <a class="page-link" href="#" tabindex="-1">{% trans 'Previous' %}</a>
                 </li>
                 {% endif %}
 
@@ -140,11 +138,11 @@
 
                 {% if page_obj.has_next %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans 'Next' %}</a>
                 </li>
                 {% else %}
                 <li class="page-item disabled">
-                    <a class="page-link" href="#">Next</a>
+                    <a class="page-link" href="#">{% trans 'Next' %}</a>
                 </li>
                 {% endif %}
             </ul>

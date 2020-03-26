@@ -11,10 +11,10 @@
         <div class="col">
             <div class="jumbotron jumbotron-fluid my-2">
                 <div class="container text-center">
-                    <h1 class="display-3">Payment succesfully proceeded</h1>
-                    <p class="lead">Download images:</p>
-                    <a class="btn btn-primary w-25" href="{% url 'core:download' %}">Download</a>
-                    <div class="mt-5"><a href="{% url 'core:products' %}">Return to products</a></div>
+                    <h1 class="display-3">{% trans 'Payment successfully proceeded' %}</h1>
+                    <p class="lead">{% trans 'Download images' %}:</p>
+                    <a class="btn btn-primary w-25" href="{% url 'core:download' %}">{% trans 'Download' %}</a>
+                    <div class="mt-5"><a href="{% url 'core:products' %}">{% trans 'Return to products' %}</a></div>
                 </div>
             </div>
         </div>

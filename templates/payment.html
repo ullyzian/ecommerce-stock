@@ -13,7 +13,7 @@
 {% block content %}
 
 <!-- Navigation Ecommerce -->
-<h3 class="text-uppercase">Payment:</h3>
+<h3 class="text-uppercase">{% trans 'Payment' %}:</h3>
 <hr>
 
 <!-- Billing details form -->
@@ -40,9 +40,9 @@
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" name="use_default_card"
                                     id="use_default_card">
-                                <label class="custom-control-label" for="use_default_card">Use default card:
+                                <label class="custom-control-label" for="use_default_card">{% trans 'Use default card' %}:
                                     **** **** **** {{ card.last4 }}
-                                    <span>Exp: {{ card.exp_month }}/{{ card.exp_year }}</span></label>
+                                    <span>{% trans 'Exp' %}: {{ card.exp_month }}/{{ card.exp_year }}</span></label>
                             </div>
                         </div>
                         {% endif %}
@@ -52,10 +52,11 @@
                                 {% csrf_token %}
                                 <input type="hidden" name="use_default" value="true">
                                 <div class="stripe-form-row">
-                                    <button id="stripeBtn">Submit Payment</button>
+                                    <button id="stripeBtn">{% trans 'Sumbit payment' %}</button>
                                 </div>
-                                <small><strong>Note: </strong>
-                                    By submiting your payment you agree to proceed your personal data by this website.
+                                <small><strong>{% trans 'Note' %}: </strong>
+                                    {% trans 'By submiting your payment you agree to proceed your personal data by
+                                    this website.' %}
                                 </small>
                             </form>
                         </div>
@@ -66,7 +67,7 @@
                                 {% csrf_token %}
                                 <div class="stripe-form-row" id="creditCard">
                                     <label for="card-element" id="stripeBtnLabel">
-                                        Credit or debit card
+                                        {% trans 'Credit or debit card' %}
                                     </label>
 
                                     <div id="card-element" class="StripeElement">
@@ -78,8 +79,7 @@
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" name="save"
                                             id="save_card_info">
-                                        <label class="custom-control-label" for="save_card_info">Save for future
-                                            purchases</label>
+                                        <label class="custom-control-label" for="save_card_info">{% trans 'Save card' %}</label>
                                     </div>
                                 </div>
                                 <div class="stripe-form-row mt-1 ml-2 mb-0">
@@ -87,33 +87,35 @@
                                         <input type="checkbox" class="custom-control-input" name="privacy"
                                             id="privacy_policy">
                                         <label class="custom-control-label font-weight-bold" for="privacy_policy">
-                                            I have read and accept
+                                            {% trans 'I have read and accept' %}
                                             <a href="{% url 'core:privacy-policy' %}">
-                                                Privacy Policy
+                                                {% trans 'Privacy Policy' %}
                                             </a>
                                         </label>
                                     </div>
                                 </div>
                                 <div class="stripe-form-row mb-2 mt-0">
-                                    <button id="stripeBtn">Submit Payment</button>
+                                    <button id="stripeBtn">{% trans 'Submit payment' %}</button>
                                 </div>
-                                <small><strong>Note: </strong>
-                                    By submiting your payment you agree to proceed your personal data by this website.
+                                <small><strong>{% trans 'Note' %}: </strong>
+                                    {% trans 'By submiting your payment you agree to proceed your personal data by
+                                    this website.' %}
                                 </small>
                             </form>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="nav-tab-paypal">
                         <div style="padding: 5px 30px;">
-                            <p>Paypal is easiest way to pay online</p>
+                            <p>{% trans 'Paypal is easiest way to pay online' %}</p>
                             <form action="." method="POST" id="paypal-form">
                                 {% csrf_token %}
                                 <button type="submit" id="paypalBtn" class="btn btn-primary btn-block">
-                                    <i class="fab fa-paypal"></i>Log in and pay
+                                    <i class="fab fa-paypal"></i>{% trans 'Log in and pay' %}
                                 </button>
                             </form>
-                            <small><strong>Note: </strong>
-                                By submiting your payment you agree to proceed your personal data by this website.
+                            <small><strong>{% trans 'Note' %}: </strong>
+                                {% trans 'By submiting your payment you agree to proceed your personal data by this
+                                website.' %}
                             </small>
                         </div>
                     </div>
@@ -126,7 +128,7 @@
     <!-- Sidebar order total -->
     <aside class="col-3">
         <div class="border rounded p-3 bg-light">
-            <h4 class="text-uppercase mb-3">Your order</h4>
+            <h4 class="text-uppercase mb-3">{% trans 'Your order' %}</h4>
 
             {% for order_item in order.items.all %}
             <hr>
@@ -137,7 +139,7 @@
             {% endfor %}
             <hr class="hr-bold">
             <div class="d-flex justify-content-between h4 font-weight-bold">
-                <div>Total</div>
+                <div>{% trans 'Total' %}</div>
                 <div>${{ order.get_total }}</div>
             </div>
         </div>

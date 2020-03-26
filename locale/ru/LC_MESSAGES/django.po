@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-22 16:48+0000\n"
+"POT-Creation-Date: 2020-03-26 18:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,53 +20,85 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: ecommerce/settings.py:87
-msgid "English"
-msgstr ""
+#: core/models.py:30
+msgid "Categories"
+msgstr "Категории"
 
-#: ecommerce/settings.py:88
+#: ecommerce/settings.py:89
+msgid "English"
+msgstr "Английский"
+
+#: ecommerce/settings.py:90
 msgid "Russian"
-msgstr ""
+msgstr "Русский"
+
+#: templates/account/account_info.html:5
+msgid "General - iStorno"
+msgstr "Основное - iStorno"
+
+#: templates/account/account_info.html:10
+msgid "Account Info"
+msgstr "Информация об аккаунте"
+
+#: templates/account/account_info.html:12
+msgid "Full name"
+msgstr "Имя"
+
+#: templates/account/account_info.html:15
+msgid "Username"
+msgstr "Псевдоним"
+
+#: templates/account/account_info.html:18
+msgid "Primary email"
+msgstr "Основная почта"
+
+#: templates/account/account_info.html:22
+msgid "Peremissions"
+msgstr "Права"
+
+#: templates/account/account_info.html:23 templates/base.html:110
+msgid "Admin"
+msgstr "Админ"
 
 #: templates/account/email.html:6
 msgid "Account - iStorno"
-msgstr ""
+msgstr "Аккаунт - iStorno"
 
 #: templates/account/email.html:10
 msgid "E-mail Addresses"
-msgstr ""
+msgstr "Почтовые адресса"
 
 #: templates/account/email.html:13
 msgid "The following e-mail addresses are associated with your account:"
-msgstr ""
+msgstr "Следующие электронные адресса привязаны к вашему аккаунту:"
 
 #: templates/account/email.html:30
 msgid "Verified"
-msgstr ""
+msgstr "Подтвержден"
 
 #: templates/account/email.html:32
 msgid "Unverified"
-msgstr ""
+msgstr "Не подтвержден"
 
 #: templates/account/email.html:34
 msgid "Primary"
-msgstr ""
+msgstr "Основной"
 
 #: templates/account/email.html:42
 msgid "Make Primary"
-msgstr ""
+msgstr "Сделать основным"
 
 #: templates/account/email.html:43
 msgid "Re-send Verification"
-msgstr ""
+msgstr "Отправить код подтверждения заного"
 
 #: templates/account/email.html:44
 msgid "Remove"
-msgstr ""
+msgstr "Удалить"
 
 #: templates/account/email.html:51
 msgid "Warning:"
-msgstr ""
+msgstr "Предупреждение:"
 
 #: templates/account/email.html:52
 msgid ""
@@ -76,15 +108,15 @@ msgstr ""
 
 #: templates/account/email.html:58
 msgid "Add E-mail Address"
-msgstr ""
+msgstr "Добавить электронный почтовый адрес"
 
 #: templates/account/email.html:63
 msgid "Add E-mail"
-msgstr ""
+msgstr "Добавить электронную почту"
 
 #: templates/account/email.html:73
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr ""
+msgstr "Вы действительно хотите удалить выбранную почту?"
 
 #: templates/account/email/email_confirmation_message.txt:1
 #, python-format
@@ -137,11 +169,11 @@ msgstr ""
 
 #: templates/account/email_confirm.html:6
 msgid "Confirm E-mail Address - iStorno"
-msgstr ""
+msgstr "Подтверждение почтового адреса"
 
 #: templates/account/email_confirm.html:10
 msgid "Confirm E-mail Address"
-msgstr ""
+msgstr "Подтвердите почтовый адрес"
 
 #: templates/account/email_confirm.html:16
 #, python-format
@@ -152,7 +184,7 @@ msgstr ""
 
 #: templates/account/email_confirm.html:20
 msgid "Confirm"
-msgstr ""
+msgstr "Подтвердить"
 
 #: templates/account/email_confirm.html:27
 #, python-format
@@ -306,6 +338,83 @@ msgstr ""
 msgid "Profile - iStorno"
 msgstr ""
 
+#: templates/account/profile.html:12
+msgid "Info"
+msgstr ""
+
+#: templates/account/profile.html:14
+msgid "Email"
+msgstr ""
+
+#: templates/account/profile.html:17
+msgid "Password change"
+msgstr ""
+
+#: templates/account/profile.html:18 templates/account/saved_cards.html:9
+msgid "Saved cards"
+msgstr ""
+
+#: templates/account/profile.html:19
+msgid "Purchases"
+msgstr ""
+
+#: templates/account/purchases.html:5
+msgid "Purchases - iStorno"
+msgstr ""
+
+#: templates/account/purchases.html:11
+msgid "List of purchases"
+msgstr ""
+
+#: templates/account/purchases.html:17
+msgid "Order ID"
+msgstr ""
+
+#: templates/account/purchases.html:24
+msgid "Title"
+msgstr ""
+
+#: templates/account/purchases.html:25 templates/item_detail.html:39
+#: templates/items_list.html:58 templates/search.html:59
+msgid "Category"
+msgstr ""
+
+#: templates/account/purchases.html:26 templates/item_detail.html:35
+#: templates/items_list.html:57 templates/search.html:58
+#: templates/search.html:91
+msgid "Price"
+msgstr ""
+
+#: templates/account/purchases.html:40 templates/order_summary.html:75
+#: templates/payment.html:142
+msgid "Total"
+msgstr ""
+
+#: templates/account/purchases.html:50 templates/items_list.html:85
+#: templates/payment_completed.html:16
+msgid "Download"
+msgstr ""
+
+#: templates/account/purchases.html:56
+msgid "You haven't any purchase"
+msgstr ""
+
+#: templates/account/purchases.html:57
+msgid "Go to the \"PRODUCTS\" sectio"
+msgstr ""
+
+#: templates/account/saved_cards.html:5
+msgid "Saved cards - iStorno"
+msgstr ""
+
+#: templates/account/saved_cards.html:12
+msgid "Card"
+msgstr ""
+
+#: templates/account/saved_cards.html:13
+msgid "Expiration"
+msgstr ""
+
 #: templates/account/signup.html:6
 msgid "Signup"
 msgstr ""
@@ -330,6 +439,8 @@ msgid "We are sorry, but the sign up is currently closed."
 msgstr ""
 
 #: templates/account/snippets/already_logged_in.html:5
+#: templates/payment.html:57 templates/payment.html:100
+#: templates/payment.html:116
 msgid "Note"
 msgstr ""
 
@@ -378,24 +489,232 @@ msgid ""
 "mail address</a>."
 msgstr ""
 
-#: templates/checkout_detail.html:5
-msgid "Checkout - iStorno"
+#: templates/base.html:47
+msgid "Home"
+msgstr ""
+
+#: templates/base.html:53 templates/items_list.html:23
+msgid "Products"
+msgstr ""
+
+#: templates/base.html:80
+msgid "Cart"
+msgstr ""
+
+#: templates/base.html:106
+msgid "Account"
+msgstr ""
+
+#: templates/base.html:112
+msgid "Profile"
+msgstr ""
+
+#: templates/base.html:113
+msgid "Logout"
+msgstr ""
+
+#: templates/base.html:121
+msgid "Login"
+msgstr ""
+
+#: templates/base.html:126
+msgid "Sign up"
+msgstr ""
+
+#: templates/base.html:171 templates/payment.html:92
+msgid "Privacy Policy"
+msgstr ""
+
+#: templates/base.html:172
+msgid "License Agreement"
+msgstr ""
+
+#: templates/base.html:173
+msgid "Rules for the site users"
 msgstr ""
 
 #: templates/home.html:5
 msgid "Home - iStorno"
 msgstr ""
 
+#: templates/home.html:50
+msgid "Welcome to iStorno"
+msgstr ""
+
+#: templates/home.html:54
+msgid "New Year - New Site"
+msgstr ""
+
+#: templates/home.html:65
+msgid "Wy namely we?"
+msgstr ""
+
+#: templates/home.html:80
+msgid "The saturation of the website"
+msgstr ""
+
+#: templates/home.html:95
+msgid "Legal purity"
+msgstr ""
+
+#: templates/home.html:109
+msgid "We are listening to and hear you!"
+msgstr ""
+
 #: templates/item_detail.html:6
 msgid "Detail - iStorno"
+msgstr ""
+
+#: templates/item_detail.html:48 templates/search.html:76
+msgid "Remove from cart"
+msgstr ""
+
+#: templates/item_detail.html:53 templates/items_list.html:72
+#: templates/items_list.html:89 templates/search.html:79
+msgid "Add to cart"
+msgstr ""
+
+#: templates/item_detail.html:83 templates/item_detail.html:104
+#: templates/items_list.html:60 templates/search.html:61
+msgid "Description"
+msgstr ""
+
+#: templates/item_detail.html:91
+msgid "Review"
+msgstr ""
+
+#: templates/item_detail.html:112
+msgid "Reviews"
 msgstr ""
 
 #: templates/items_list.html:5
 msgid "Products - iStorno"
 msgstr ""
 
+#: templates/items_list.html:68
+msgid "Close"
+msgstr ""
+
+#: templates/items_list.html:70 templates/search.html:72
+msgid "Details"
+msgstr ""
+
+#: templates/items_list.html:84
+msgid "Free"
+msgstr ""
+
+#: templates/items_list.html:113 templates/items_list.html:117
+#: templates/search.html:120 templates/search.html:124
+msgid "Previous"
+msgstr ""
+
+#: templates/items_list.html:134 templates/items_list.html:138
+#: templates/search.html:141 templates/search.html:145
+msgid "Next"
+msgstr ""
+
 #: templates/order_summary.html:5
 msgid "Order - iStorno"
+msgstr ""
+
+#: templates/order_summary.html:10
+msgid "Order items"
+msgstr ""
+
+#: templates/order_summary.html:41
+msgid "Unit price"
+msgstr ""
+
+#: templates/order_summary.html:48 templates/order_summary.html:70
+msgid "Subtotal"
+msgstr ""
+
+#: templates/order_summary.html:68
+msgid "Order summary"
+msgstr ""
+
+#: templates/order_summary.html:79
+msgid "Buy"
+msgstr ""
+
+#: templates/order_summary.html:88
+msgid "You have not added any items."
+msgstr ""
+
+#: templates/order_summary.html:89
+msgid "Go to the"
+msgstr ""
+
+#: templates/order_summary.html:90
+msgid "PRODUCTS"
+msgstr ""
+
+#: templates/order_summary.html:91
+msgid "section, select a product and add it to your cart!"
+msgstr ""
+
+#: templates/payment.html:6
+msgid "Payment - iStorno"
+msgstr ""
+
+#: templates/payment.html:16
+msgid "Payment"
+msgstr ""
+
+#: templates/payment.html:43
+msgid "Use default card"
+msgstr ""
+
+#: templates/payment.html:45
+msgid "Exp"
+msgstr ""
+
+#: templates/payment.html:55
+msgid "Sumbit payment"
+msgstr ""
+
+#: templates/payment.html:70
+msgid "Credit or debit card"
+msgstr ""
+
+#: templates/payment.html:82
+msgid "Save card"
+msgstr ""
+
+#: templates/payment.html:90
+msgid "I have read and accept"
+msgstr ""
+
+#: templates/payment.html:98
+msgid "Submit payment"
+msgstr ""
+
+#: templates/payment.html:109
+msgid "Paypal is easiest way to pay online"
+msgstr ""
+
+#: templates/payment.html:113
+msgid "Log in and pay"
+msgstr ""
+
+#: templates/payment.html:131
+msgid "Your order"
+msgstr ""
+
+#: templates/payment_completed.html:5
+msgid "Completed - iStorno"
+msgstr ""
+
+#: templates/payment_completed.html:14
+msgid "Payment successfully proceeded"
+msgstr ""
+
+#: templates/payment_completed.html:15
+msgid "Download images"
+msgstr ""
+
+#: templates/payment_completed.html:17
+msgid "Return to products"
 msgstr ""
 
 #: templates/privacy_policy.html:5
@@ -404,4 +723,20 @@ msgstr ""
 
 #: templates/search.html:5
 msgid "Search - iStorno"
+msgstr ""
+
+#: templates/search.html:14
+msgid "Search..."
+msgstr ""
+
+#: templates/search.html:22
+msgid "Results:"
+msgstr ""
+
+#: templates/search.html:102
+msgid "There are no photos for your request"
+msgstr ""
+
+#: templates/search.html:103
+msgid "Please, search for another photos"
 msgstr ""

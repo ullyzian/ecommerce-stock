@@ -9,18 +9,18 @@
 <div class="container bg-light px-5 py-4 border rounded">
     <h1>{% trans "Account Info" %}</h1>
     <hr>
-    <h5 class="font-weight-bold">Full name:
+    <h5 class="font-weight-bold">{% trans 'Full name' %}:
         <span class="font-weight-normal">{{ user.first_name }} {{ user.second_name }}</span>
     </h5>
-    <h5 class="font-weight-bold">Username: 
+    <h5 class="font-weight-bold">{% trans 'Username' %}:
         <span class="font-weight-normal">{{ user.username }}</span>
     </h5>
-    <h5 class="font-weight-bold">Primary email: 
+    <h5 class="font-weight-bold">{% trans 'Primary email' %}:
         <span class="font-weight-normal">{{ user.email }}</span>
     </h5>
     {% if user.is_staff %}
-    <h5 class="font-weight-bold">Peremissions:
-        <span class="font-weight-normal">Admin</span>
+    <h5 class="font-weight-bold">{% trans 'Peremissions' %}:
+        <span class="font-weight-normal">{% trans 'Admin' %}</span>
     </h5>
     {% endif %}
 

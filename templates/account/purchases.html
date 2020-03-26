@@ -8,22 +8,22 @@
 <div class="container bg-light px-5 py-4 border rounded">
 
     {% if orders %}
-        <h1 class="text-uppercase">List of purchases</h1>
+        <h1 class="text-uppercase">{% trans 'List of purchases' %}</h1>
         <hr>
 
         {% for order in orders %}
         <div class="border bg-white rounded mb-4 p-3">
             <div class="d-flex justify-content-between">
-                <span>Order ID: {{ order.id }}</span>
+                <span>{% trans 'Order ID' %}: {{ order.id }}</span>
                 <span>{{ order.ordered_date }}</span>
             </div>
             <table class="table table-striped mt-2">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">{% trans 'Title' %}</th>
+                        <th scope="col">{% trans 'Category' %}</th>
+                        <th scope="col">{% trans 'Price' %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,7 +37,7 @@
                     {% endfor %}
                     <tr class="table-active">
                         <th scope="row">
-                            <h4>Total:</h4>
+                            <h4>{% trans 'Total' %}:</h4>
                         </th>
                         <td></td>
                         <td></td>
@@ -47,14 +47,14 @@
                     </tr>
                 </tbody>
             </table>
-            <a class="btn btn-primary w-25" href="{% url 'core:download' %}">Download</a>
+            <a class="btn btn-primary w-25" href="{% url 'core:download' %}">{% trans 'Download' %}</a>
         </div>
         {% endfor %}
 
     {% else %}
     <div class="container text-center">
-        <h1 class="display-4">You haven't any purchase</h1>
-        <p class="lead">Go to the "PRODUCTS" section</p>
+        <h1 class="display-4">{% trans "You haven't any purchase" %}</h1>
+        <p class="lead">{% trans 'Go to the "PRODUCTS" sectio' %}n</p>
     </div>
     {% endif %}
 

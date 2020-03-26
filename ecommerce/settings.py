@@ -1,6 +1,5 @@
 import os
 from dotenv import load_dotenv
-from django.utils.translation import ugettext_lazy as _
 
 # Directories
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -63,10 +62,15 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
             ],
         },
     },
 ]
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.i18n',
+)
 
 # Athentication
 AUTHENTICATION_BACKENDS = (
@@ -86,8 +90,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Internationalization
 LANGUAGES = (
-    ('en', _('English')),
-    ('ru', _('Russian')),
+    ('en', 'EN'),
+    ('ru', 'RU'),
 )
 
 LOCALE_PATHS = (

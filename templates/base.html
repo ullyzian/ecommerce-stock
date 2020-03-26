@@ -4,15 +4,17 @@
 {% load static %}
 {% load cart_template_tags %}
 {% load category_template_tags %}
+{% load i18n %}
 
 <!-- Header -->
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>{% block head_title %}{% endblock %}</title>
   {% block extra_head %}{% endblock extra_head %}
-  
+
   <!-- Links -->
   <link rel="stylesheet" href="{% static 'css/fontawesome.css' %}">
   <link rel="manifest" href="{% static 'manifest.json' %}">
@@ -21,6 +23,7 @@
 </head>
 
 <!-- Body -->
+
 <body>
   {% block body %}
   <!-- Navbar -->
@@ -29,7 +32,7 @@
 
       <!-- Brand -->
       <div class="navbar-brand mb-0 h1 pr-3 d-none d-sm-none d-lg-block">
-        iSTORNO</div>
+        iStorno</div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -43,13 +46,13 @@
           <!-- Home -->
           <li class="nav-item active ml-3">
             <a class="nav-link text-uppercase" href="{% url 'core:home' %}">
-              Home <span class="sr-only">(current)</span>
+              {% trans 'Home' %} <span class="sr-only">(current)</span>
             </a>
           </li>
 
           <!-- Categories -->
           <li class="nav-item dropdown btn-group ml-3">
-            <a class="nav-link text-uppercase pr-0" href="{% url 'core:products' %}">Products</a>
+            <a class="nav-link text-uppercase pr-0" href="{% url 'core:products' %}">{% trans 'Products' %}</a>
             <a class="nav-link dropdown-toggle pl-1" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">
             </a>
             <div class="dropdown-menu">
@@ -76,7 +79,7 @@
               <span class="badge badge-primary badge-pill">{{ request.user|cart_item_count }}
               </span>
               <i class="fa fa-shopping-cart"></i>
-              Cart
+              {% trans 'Cart' %}
             </a>
             <a class="nav-link dropdown-toggle pl-1" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">
             </a>
@@ -102,14 +105,14 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdownMenuLink"
               data-toggle="dropdown">
-              Account
+              {% trans 'Account' %}
             </a>
             <div class="dropdown-menu">
               {% if user.is_staff %}
-              <a class="dropdown-item" href="/admin">Admin</a>
+              <a class="dropdown-item" href="/admin">{% trans 'Admin' %}</a>
               {% endif %}
-              <a class="dropdown-item" href="{% url 'core:account-info' %}">Profile</a>
-              <a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a>
+              <a class="dropdown-item" href="{% url 'core:account-info' %}">{% trans 'Profile' %}</a>
+              <a class="dropdown-item" href="{% url 'account_logout' %}">{% trans 'Logout' %}</a>
             </div>
           </li>
         </ul>
@@ -117,16 +120,34 @@
         {% else %}
         <ul class="navbar-nav mt-2 mt-lg-0 mr-3">
           <li class="nav-item">
-            <a class="nav-link text-uppercase active" href="{% url 'account_login' %}">Login</a>
+            <a class="nav-link text-uppercase active" href="{% url 'account_login' %}">{% trans 'Login' %}</a>
           </li>
         </ul>
         <ul class="navbar-nav mt-2 mt-lg-0">
           <li class="nav-item">
-            <a class="nav-link text-uppercase active" href="{% url 'account_signup' %}">Sign Up</a>
+            <a class="nav-link text-uppercase active" href="{% url 'account_signup' %}">{% trans 'Sign up' %}</a>
           </li>
         </ul>
         {% endif %}
 
+        <ul class="navbar-nav pt-1 mt-lg-0">
+          <li class="nav-item">
+            <form action="{% url 'set_language' %}" method="post">
+              {% csrf_token %}
+              <input name="next" type="hidden" value="{{ redirect_to }}">
+              <select class="form-control form-control-sm" name="language" onchange="this.form.submit()">
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+                {% for language in languages %}
+                <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                  {{ language.name_local }}
+                </option>
+                {% endfor %}
+              </select>
+            </form>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
@@ -167,9 +188,9 @@
 
         <!-- Links -->
         <div class="row justify-content-around mt-3">
-          <a class="inline-block" href="{% url 'core:privacy-policy' %}">Privacy Policy</a>
-          <a class="inline-block" href="#">License Agreements</a>
-          <a class="inline-block" href="#">Rules for the site users</a>
+          <a class="inline-block" href="{% url 'core:privacy-policy' %}">{% trans 'Privacy Policy' %}</a>
+          <a class="inline-block" href="#">{% trans 'License Agreement' %}</a>
+          <a class="inline-block" href="#">{% trans 'Rules for the site users' %}</a>
         </div>
         <hr />
 
@@ -177,7 +198,7 @@
         <div class="row justify-content-center pb-3">
           <span>
             <a href="{% url 'core:home' %}" title="There is help for those looking for best pictures">
-              iSTORNO
+              iStorno
             </a>
             Copyright ©2020.
           </span>
@@ -193,7 +214,7 @@
   <script src="https://js.stripe.com/v3/"></script>
   <script src="{% static 'js/script.js' %}"></script>
   {% block javascript %}{% endblock javascript %}
-    
+
   {% endblock %}
 </body>
 

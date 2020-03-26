@@ -9,14 +9,14 @@
 <div class="row">
     <aside class="col-3">
         <ul class="list-group bg-light">
-            <a href="{% url 'core:account-info' %}" class="list-group-item list-group-item-action">General</a>
+            <a href="{% url 'core:account-info' %}" class="list-group-item list-group-item-action">{% trans 'Info' %}</a>
             <a href="{% url 'account_email' %}" class="list-group-item list-group-item-action">
-                E-mail
+                {% trans 'Email' %}
             </a>
-            <a href="{% url 'account_change_password' %}" class="list-group-item list-group-item-action">Password
-                change</a>
-            <a href="{% url 'core:saved-cards' %}" class="list-group-item list-group-item-action">Saved cards</a>
-            <a href="{% url 'core:purchases' %}" class="list-group-item list-group-item-action">Purchases</a>
+            <a href="{% url 'account_change_password' %}"
+                class="list-group-item list-group-item-action">{% trans 'Password change' %}</a>
+            <a href="{% url 'core:saved-cards' %}" class="list-group-item list-group-item-action">{% trans 'Saved cards' %}</a>
+            <a href="{% url 'core:purchases' %}" class="list-group-item list-group-item-action">{% trans 'Purchases' %}</a>
         </ul>
     </aside>
     <section class="col-9">

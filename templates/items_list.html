@@ -20,7 +20,7 @@
                 </div>
             </form>
         </div>
-        <h3 class="text-uppercase">Products:</h3>
+        <h3 class="text-uppercase">{% trans 'Products' %}:</h3>
         <hr>
         <div class="row text-center">
 
@@ -54,10 +54,10 @@
                                             alt="{{ item.title }}">
                                     </div>
                                     <div class="col-lg-5 col-md-12 text-left">
-                                        <div class="mb-1 h4"><strong>Price: </strong>${{ item.price }}</div>
-                                        <div class="mb-1 h4"><strong>Category:
+                                        <div class="mb-1 h4"><strong>{% trans 'Price' %}: </strong>${{ item.price }}</div>
+                                        <div class="mb-1 h4"><strong>{% trans 'Category' %}:
                                             </strong>{{ item.category.title }}</div>
-                                        <div class="mb-1 h4"><strong>Description: </strong>{{ item.description }}
+                                        <div class="mb-1 h4"><strong>{% trans 'Description' %}: </strong>{{ item.description }}
                                         </div>
                                     </div>
                                 </div>
@@ -65,11 +65,11 @@
                                 <!-- Popup footer -->
                                 <div class="modal-footer px-1">
                                     <button type="button" class="btn btn-lg btn-secondary px-2"
-                                        data-dismiss="modal">Close</button>
+                                        data-dismiss="modal">{% trans 'Close' %}</button>
                                     <a href="{{ item.get_absolute_url }}"
-                                        class="btn btn-lg btn-primary px-2">Details</a>
-                                    <a href="{{ item.get_add_to_cart_url }}" class="btn btn-lg btn-primary px-2">Add to
-                                        cart</a>
+                                        class="btn btn-lg btn-primary px-2">{% trans 'Details' %}</a>
+                                    <a href="{{ item.get_add_to_cart_url }}"
+                                        class="btn btn-lg btn-primary px-2">{% trans 'Add to cart' %}</a>
                                 </div>
 
                             </div>
@@ -81,12 +81,12 @@
                         <div class="card-title">
                             <a class="card-link h5" href="{{ item.get_absolute_url }}">{{ item.title }}</a>:
                             <span class="my-0 card-text">
-                                {% if item.price == 0.00 %}Free
-                                <div class="mt-1"><a href="#" class="btn btn-sm btn-primary m-0">Download</a>
+                                {% if item.price == 0.00 %}{% trans 'Free' %}
+                                <div class="mt-1"><a href="#" class="btn btn-sm btn-primary m-0">{% trans 'Download' %}</a>
                                 </div>
                                 {% else %}${{ item.price }}
                                 <div class="mt-1"><a href="{{ item.get_add_to_cart_url }}"
-                                        class="btn btn-sm btn-primary m-0">Add to cart</a>
+                                        class="btn btn-sm btn-primary m-0">{% trans 'Add to cart' %}</a>
                                 </div>
                                 {% endif %}
                             </span>
@@ -110,11 +110,11 @@
             <ul class="pagination justify-content-center">
                 {% if page_obj.has_previous %}
                 <li class="page-item">
-                    <a class=" page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    <a class=" page-link" href="?page={{ page_obj.previous_page_number }}">{% trans 'Previous' %}</a>
                 </li>
                 {% else %}
                 <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    <a class="page-link" href="#" tabindex="-1">{% trans 'Previous' %}</a>
                 </li>
                 {% endif %}
 
@@ -131,11 +131,11 @@
 
                 {% if page_obj.has_next %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans 'Next' %}</a>
                 </li>
                 {% else %}
                 <li class="page-item disabled">
-                    <a class="page-link" href="#">Next</a>
+                    <a class="page-link" href="#">{% trans 'Next' %}</a>
                 </li>
                 {% endif %}
             </ul>
