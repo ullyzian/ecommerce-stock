@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-26 18:35+0000\n"
+"POT-Creation-Date: 2020-03-27 13:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,14 +23,6 @@ msgstr ""
 #: core/models.py:30
 msgid "Categories"
 msgstr "Категории"
-
-#: ecommerce/settings.py:89
-msgid "English"
-msgstr "Английский"
-
-#: ecommerce/settings.py:90
-msgid "Russian"
-msgstr "Русский"
 
 #: templates/account/account_info.html:5
 msgid "General - iStorno"
@@ -56,7 +48,7 @@ msgstr "Основная почта"
 msgid "Peremissions"
 msgstr "Права"
 
-#: templates/account/account_info.html:23 templates/base.html:110
+#: templates/account/account_info.html:23 templates/base.html:112
 msgid "Admin"
 msgstr "Админ"
 
@@ -105,6 +97,8 @@ msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
+"В текущий момент у вас нет ни одной активной почты. Вам следует добавить "
+"почтовый адрес, чтобы получать уведомления, сменять пароль и тд."
 
 #: templates/account/email.html:58
 msgid "Add E-mail Address"
@@ -128,6 +122,13 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
+"Приветствуем из %(site_name)s!\n"
+"\n"
+"Вы получили это письмо, потому что пользователь %(user_display)s указал его "
+"как почтовый адрес для своего аккунта.\n"
+"\n"
+"Чтобы подтвердить, что это действительно вы, пройдите по ссылке "
+"%(activate_url)s\n"
 
 #: templates/account/email/email_confirmation_message.txt:7
 #, python-format
@@ -135,10 +136,12 @@ msgid ""
 "Thank you from %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"С уважением, %(site_name)s!\n"
+"%(site_domain)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
-msgstr ""
+msgstr "Пожалуйста подтвердите свой почтовый адрес"
 
 #: templates/account/email/password_reset_key_message.txt:1
 #, python-format
@@ -150,11 +153,17 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
+"Приветствуем из %(site_name)s!\n"
+"\n"
+"Вы получили это письмо, потому что вы или иное лицо запросили пароль от "
+"вашего аккаунта.\n"
+"Если это не вы, то можете проигноривать это письмо. Пройдите по ссылке ниже, "
+"чтобы восстановить свой пароль."
 
 #: templates/account/email/password_reset_key_message.txt:8
 #, python-format
 msgid "In case you forgot, your username is %(username)s."
-msgstr ""
+msgstr "В случае, если вы забыли, ваш псевдоним %(username)s."
 
 #: templates/account/email/password_reset_key_message.txt:10
 #, python-format
@@ -162,10 +171,12 @@ msgid ""
 "Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"Спасибо, что используете %(site_name)s!\n"
+"%(site_domain)s"
 
 #: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"
-msgstr ""
+msgstr "Восстановление пароля"
 
 #: templates/account/email_confirm.html:6
 msgid "Confirm E-mail Address - iStorno"
@@ -181,6 +192,8 @@ msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
 msgstr ""
+"Пожалуйста подтвердите, что <a href=\"mailto:%(email)s\">%(email)s</a> "
+"почтовый адрес для пользователя %(user_display)s."
 
 #: templates/account/email_confirm.html:20
 msgid "Confirm"
@@ -192,14 +205,17 @@ msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
+"Срок этой ссылки на восстановление пароля истек или некорректен. Пожалуйста "
+"<a href=\"%(email_url)s\">запросите новое письмо на восстановление пароля</"
+"a>."
 
 #: templates/account/login.html:6
 msgid "Sign In - iStorno"
-msgstr ""
+msgstr "Войти - iStorno"
 
 #: templates/account/login.html:13 templates/account/login.html:25
 msgid "Sign In"
-msgstr ""
+msgstr "Войти"
 
 #: templates/account/login.html:14
 #, python-format
@@ -207,114 +223,122 @@ msgid ""
 "If you have not created an account yet, then please\n"
 "        <a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
+"Если вы еще не создали аккуант, то сначала <a href=\"%(signup_url)s"
+"\">зарегистрируйтесь</a>."
 
 #: templates/account/login.html:26
 msgid "Forgot Password?"
-msgstr ""
+msgstr "Забыли пароль?"
 
 #: templates/account/logout.html:5
 msgid "Sign Out - iStorno"
-msgstr ""
+msgstr "Выход - iStorno"
 
 #: templates/account/logout.html:11 templates/account/logout.html:20
 msgid "Sign Out"
-msgstr ""
+msgstr "Выход"
 
 #: templates/account/logout.html:13
 msgid "Are you sure you want to sign out?"
-msgstr ""
+msgstr "Вы действительно хотите выйти?"
 
 #: templates/account/messages/cannot_delete_primary_email.txt:2
 #, python-format
 msgid "You cannot remove your primary e-mail address (%(email)s)."
-msgstr ""
+msgstr "Вы не можете удальить свой основной почтовый адрес (%(email)s)."
 
 #: templates/account/messages/email_confirmation_sent.txt:2
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s."
-msgstr ""
+msgstr "Письмо для подтверждения выслано на адрес %(email)s."
 
 #: templates/account/messages/email_confirmed.txt:2
 #, python-format
 msgid "You have confirmed %(email)s."
-msgstr ""
+msgstr "Вы подтвердили почтовый адрес %(email)s."
 
 #: templates/account/messages/email_deleted.txt:2
 #, python-format
 msgid "Removed e-mail address %(email)s."
-msgstr ""
+msgstr "Почтовый адрес %(email)s удален."
 
 #: templates/account/messages/logged_in.txt:4
 #, python-format
 msgid "Successfully signed in as %(name)s."
-msgstr ""
+msgstr "%(name)s успешно авторизирован."
 
 #: templates/account/messages/logged_out.txt:2
 msgid "You have signed out."
-msgstr ""
+msgstr "Вы деавторизовались."
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
-msgstr ""
+msgstr "Пароль успешно сменен."
 
 #: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
-msgstr ""
+msgstr "Пароль успешно установлен."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary e-mail address set."
-msgstr ""
+msgstr "Основной почтовый адрес установлен."
 
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary e-mail address must be verified."
-msgstr ""
+msgstr "Ваш основной почтовый адрес должен быть подтвержден."
 
 #: templates/account/password_change.html:6
 #: templates/account/password_reset_from_key.html:5
 #: templates/account/password_reset_from_key_done.html:4
 msgid "Change Password - iStorno"
-msgstr ""
+msgstr "Сменить пароль - iStorno"
 
 #: templates/account/password_change.html:10
 #: templates/account/password_change.html:15
 #: templates/account/password_reset_from_key.html:11
 #: templates/account/password_reset_from_key_done.html:7
 msgid "Change Password"
-msgstr ""
+msgstr "Сменить пароль"
 
 #: templates/account/password_reset.html:7
 #: templates/account/password_reset_done.html:6
 msgid "Password Reset - iStorno"
-msgstr ""
+msgstr "Восстановление пароля - iStorno"
 
 #: templates/account/password_reset.html:13
 #: templates/account/password_reset_done.html:9
 msgid "Password Reset"
-msgstr ""
+msgstr "Восстановление пароля"
 
 #: templates/account/password_reset.html:18
 msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
+"Забыли свой пароль? Введите почтовый адрес ниже и мы отправим вам письмо на "
+"восстановление пароля."
 
 #: templates/account/password_reset.html:23
 msgid "Reset My Password"
-msgstr ""
+msgstr "Восстановить пароль"
 
 #: templates/account/password_reset.html:26
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
+"Пожалуйста, свяжитесь с нами, если у вас возникают проблемы с "
+"восстановлением пароля."
 
 #: templates/account/password_reset_done.html:15
 msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
+"Мы отправили вам письмо. Пожалуйста, свяжитесь с нами, если вы не получили "
+"письмо в течении нескольких минут."
 
 #: templates/account/password_reset_from_key.html:11
 msgid "Bad Token"
-msgstr ""
+msgstr "Некорректный токен"
 
 #: templates/account/password_reset_from_key.html:15
 #, python-format
@@ -324,149 +348,159 @@ msgid ""
 "                request a\n"
 "                <a href=\"%(passwd_reset_url)s\">new password reset</a>."
 msgstr ""
+"Ссылка на восстановление пароля некорректна, возможно она уже была "
+"использована. Пожалуйста \n"
+"запросите новую\n"
+" <a href=\"%(passwd_reset_url)s\">ссылку на восстановление пароля</a>."
 
 #: templates/account/password_reset_from_key.html:25
 msgid "Change password"
-msgstr ""
+msgstr "Сменить пароль"
 
 #: templates/account/password_reset_from_key.html:29
 #: templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
-msgstr ""
+msgstr "Ваш пароль теперь изменен"
 
 #: templates/account/profile.html:6
 msgid "Profile - iStorno"
-msgstr ""
+msgstr "Профиль - iStorno"
 
 #: templates/account/profile.html:12
 msgid "Info"
-msgstr ""
+msgstr "Информация"
 
 #: templates/account/profile.html:14
 msgid "Email"
-msgstr ""
+msgstr "Электронная почта"
 
 #: templates/account/profile.html:17
 msgid "Password change"
-msgstr ""
+msgstr "Изменить пароль"
 
 #: templates/account/profile.html:18 templates/account/saved_cards.html:9
 msgid "Saved cards"
-msgstr ""
+msgstr "Сохраненные карты"
 
 #: templates/account/profile.html:19
 msgid "Purchases"
-msgstr ""
+msgstr "Покупки"
 
 #: templates/account/purchases.html:5
 msgid "Purchases - iStorno"
-msgstr ""
+msgstr "Покупки - iStorno"
 
 #: templates/account/purchases.html:11
 msgid "List of purchases"
-msgstr ""
+msgstr "Список покупок"
 
 #: templates/account/purchases.html:17
 msgid "Order ID"
-msgstr ""
+msgstr "Номер заказа"
 
 #: templates/account/purchases.html:24
 msgid "Title"
-msgstr ""
+msgstr "Назвавние"
 
 #: templates/account/purchases.html:25 templates/item_detail.html:39
-#: templates/items_list.html:58 templates/search.html:59
+#: templates/items_list.html:58
 msgid "Category"
-msgstr ""
+msgstr "Категория"
 
 #: templates/account/purchases.html:26 templates/item_detail.html:35
-#: templates/items_list.html:57 templates/search.html:58
-#: templates/search.html:91
+#: templates/items_list.html:56
 msgid "Price"
-msgstr ""
+msgstr "Цена"
 
 #: templates/account/purchases.html:40 templates/order_summary.html:75
-#: templates/payment.html:142
+#: templates/payment.html:154
 msgid "Total"
-msgstr ""
+msgstr "Итого"
 
-#: templates/account/purchases.html:50 templates/items_list.html:85
+#: templates/account/purchases.html:50 templates/items_list.html:87
 #: templates/payment_completed.html:16
 msgid "Download"
-msgstr ""
+msgstr "Загрузить"
 
 #: templates/account/purchases.html:56
 msgid "You haven't any purchase"
-msgstr ""
+msgstr "У вас нет совершенных покупок"
 
 #: templates/account/purchases.html:57
-msgid "Go to the \"PRODUCTS\" sectio"
-msgstr ""
+msgid "Go to the \"PRODUCTS\" section"
+msgstr "Пройдите в секцию \"ТОВАРЫ\""
 
 #: templates/account/saved_cards.html:5
 msgid "Saved cards - iStorno"
-msgstr ""
+msgstr "Сохраненные карты - iStorno"
 
 #: templates/account/saved_cards.html:12
 msgid "Card"
-msgstr ""
+msgstr "Карта"
 
 #: templates/account/saved_cards.html:13
 msgid "Expiration"
-msgstr ""
+msgstr "Дата истечения"
 
 #: templates/account/signup.html:6
 msgid "Signup"
-msgstr ""
+msgstr "Регистрация"
 
 #: templates/account/signup.html:12 templates/account/signup.html:24
 msgid "Sign Up"
-msgstr ""
+msgstr "Регистрация"
 
 #: templates/account/signup.html:13
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
 msgstr ""
+"Уже зарегистрировались? Тогда пожалуйста, <a href=\"%(login_url)s"
+"\">авторизуйтесь</a>."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:8
 msgid "Sign Up Closed"
-msgstr ""
+msgstr "Регистрация закрыта"
 
 #: templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
-msgstr ""
+msgstr "Мы извиняемся, но регистрация в текущий момент закрыта."
 
 #: templates/account/snippets/already_logged_in.html:5
-#: templates/payment.html:57 templates/payment.html:100
-#: templates/payment.html:116
+#: templates/payment.html:58 templates/payment.html:104
+#: templates/payment.html:124
 msgid "Note"
-msgstr ""
+msgstr "Примечание"
 
 #: templates/account/snippets/already_logged_in.html:5
 #, python-format
 msgid "you are already logged in as %(user_display)s."
-msgstr ""
+msgstr "вы уже автроизовались как %(user_display)s."
 
 #: templates/account/verification_sent.html:5
 #: templates/account/verification_sent.html:8
 #: templates/account/verified_email_required.html:5
 #: templates/account/verified_email_required.html:8
 msgid "Verify Your E-mail Address"
-msgstr ""
+msgstr "Подтвердите ваш электронный почтовый адрес"
 
 #: templates/account/verification_sent.html:10
 msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
 "finalize the signup process."
 msgstr ""
+"Мы отправили вам письмо на подтверждение электронной почты. Пройдите по "
+"ссылке, чтобы завершить процесс регистрации."
 
 #: templates/account/verification_sent.html:11
 msgid ""
 "\n"
 "        Please contact us if you do not receive it within a few minutes."
 msgstr ""
+"\n"
+"Пожалуйста, свяжитесь с нами, если мы не получили письмо в течении "
+"нескольких минут."
 
 #: templates/account/verified_email_required.html:12
 msgid ""
@@ -474,6 +508,9 @@ msgid ""
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your e-mail address. "
 msgstr ""
+"Чтобы получить доступ к этой части сайта, нам нужно проверить \n"
+"вашу личность. Для этой цели, мы просим вас\n"
+"подтвердить право на собственность вашего электронной почтового адреса. "
 
 #: templates/account/verified_email_required.html:16
 msgid ""
@@ -481,6 +518,9 @@ msgid ""
 "verification. Please click on the link inside this e-mail. Please\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
+"Мы отправили вам письмо на подтверждение\n"
+"Пожалуйста, пройдите по ссылке в этом письме. Пожалуйста\n"
+"свяжитесь с нами, если вы не получили письмо в течении нескольких минут."
 
 #: templates/account/verified_email_required.html:20
 #, python-format
@@ -488,255 +528,338 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
+"<strong>Примечание:</strong> вы все еще можете <a href=\"%(email_url)s"
+"\">сменить ваш почтовый адрес</a>."
 
-#: templates/base.html:47
+#: templates/base.html:49
 msgid "Home"
-msgstr ""
+msgstr "Главная"
 
-#: templates/base.html:53 templates/items_list.html:23
+#: templates/base.html:55 templates/items_list.html:22
 msgid "Products"
-msgstr ""
+msgstr "Товары"
 
-#: templates/base.html:80
+#: templates/base.html:82
 msgid "Cart"
-msgstr ""
+msgstr "Корзина"
 
-#: templates/base.html:106
+#: templates/base.html:108
 msgid "Account"
-msgstr ""
+msgstr "Аккаунт"
 
-#: templates/base.html:112
+#: templates/base.html:114
 msgid "Profile"
-msgstr ""
+msgstr "Профиль"
 
-#: templates/base.html:113
+#: templates/base.html:115
 msgid "Logout"
-msgstr ""
+msgstr "Выйти"
 
-#: templates/base.html:121
+#: templates/base.html:123
 msgid "Login"
-msgstr ""
+msgstr "Войти"
 
-#: templates/base.html:126
+#: templates/base.html:128
 msgid "Sign up"
-msgstr ""
+msgstr "Регистрация"
 
-#: templates/base.html:171 templates/payment.html:92
+#: templates/base.html:191 templates/payment.html:96
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Политика Конфиденцальности"
 
-#: templates/base.html:172
+#: templates/base.html:192
 msgid "License Agreement"
-msgstr ""
+msgstr "Лицензионное Соглашение"
 
-#: templates/base.html:173
+#: templates/base.html:193
 msgid "Rules for the site users"
-msgstr ""
+msgstr "Правила для пользователей сайта"
 
 #: templates/home.html:5
 msgid "Home - iStorno"
-msgstr ""
+msgstr "Главная - iStorno"
 
 #: templates/home.html:50
 msgid "Welcome to iStorno"
-msgstr ""
+msgstr "Добро пожаловать в iStorno"
 
 #: templates/home.html:54
 msgid "New Year - New Site"
-msgstr ""
+msgstr "Новый год - Новый сайт"
 
 #: templates/home.html:65
 msgid "Wy namely we?"
-msgstr ""
+msgstr "Почему именно мы?"
 
-#: templates/home.html:80
+#: templates/home.html:69
+msgid ""
+"\n"
+"        Really! What makes us different from other stock sites ? This is an\n"
+"        impeccable quality of content. These are the best prices for our\n"
+"        licenses. Our content is exclusive and not available anywhere else. "
+"And\n"
+"        finally, you can order content from us!\n"
+"        "
+msgstr ""
+"\n"
+"Действительно! Что отличает нас от остальных сайтов по размещению фотографий? Это безупречное\n"
+" качество контента. Это лучшие цены на наши\n"
+"лицензии. Наш контент является эксклюзивным и не доступен нигде."
+"И\n"
+"наконец, вы можете заказать материалы у нас!\n"
+"  " 
+
+#: templates/home.html:83
 msgid "The saturation of the website"
-msgstr ""
+msgstr "Насыщенность сайта"
 
-#: templates/home.html:95
+#: templates/home.html:87
+msgid ""
+"We present four main types of content: high-resolution photos, HD\n"
+"        videos, 4K, footage, and graphics. All genres of content are "
+"presented\n"
+"        in galleries by category. We do a search on the site as a keyword "
+"search\n"
+"        and selection by category."
+msgstr ""
+"Мы предоставляем 4 главных типа материалов: Фотографии HD/4K, "
+"Видео\n HD, Кадры и Графические изображения. Все жанры материалов представлены\n "
+"в секции ТОВАРЫ. Мы предоставляем поиск\n по сайт по названию и категории."
+
+#: templates/home.html:98
 msgid "Legal purity"
-msgstr ""
+msgstr "Юридическая чистота"
 
-#: templates/home.html:109
-msgid "We are listening to and hear you!"
+#: templates/home.html:102
+msgid ""
+"\n"
+"        We guarantee that any material presented on our site is protected by "
+"the\n"
+"        copyright of the content owner, as well as the corresponding rights "
+"of\n"
+"        the models and the rights of the owners.\n"
+"        "
 msgstr ""
+"\n"
+"Мы гарантируем все материалы резмещенные на нашем сайте защищены\n "
+"авторским правом обладателя, также как и соответсвующие права\n "
+"моделей и и прав обладателя.\n"
+" "
+
+#: templates/home.html:115
+msgid "We are listening to and hear you!"
+msgstr "Мы прислушиваемся к вашему мнению!"
+
+#: templates/home.html:120
+msgid ""
+"\n"
+"        The rules for site visitors are simple and clear. Useful tips, "
+"critical\n"
+"        comments, and user suggestions are taken into account for further\n"
+"        promotion of the site.\n"
+"        "
+msgstr ""
+"\n"
+"Правила для посетителей очень простые и ясные. "
+"Полезные советы, коментарии с критикой\n и предложения пользователей будут \nприниматься в секции аккаунта.\n"
+" "
 
 #: templates/item_detail.html:6
-msgid "Detail - iStorno"
-msgstr ""
+#, fuzzy
+#| msgid "General - iStorno"
+msgid "Details - iStorno"
+msgstr "Основное - iStorno"
 
-#: templates/item_detail.html:48 templates/search.html:76
+#: templates/item_detail.html:48
 msgid "Remove from cart"
-msgstr ""
+msgstr "Удалить из корзины"
 
-#: templates/item_detail.html:53 templates/items_list.html:72
-#: templates/items_list.html:89 templates/search.html:79
+#: templates/item_detail.html:53 templates/items_list.html:73
+#: templates/items_list.html:91
 msgid "Add to cart"
-msgstr ""
+msgstr "Добавить в корзину"
 
 #: templates/item_detail.html:83 templates/item_detail.html:104
-#: templates/items_list.html:60 templates/search.html:61
+#: templates/items_list.html:60
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
-#: templates/item_detail.html:91
-msgid "Review"
-msgstr ""
-
-#: templates/item_detail.html:112
+#: templates/item_detail.html:91 templates/item_detail.html:112
 msgid "Reviews"
-msgstr ""
+msgstr "Отзывы"
 
 #: templates/items_list.html:5
 msgid "Products - iStorno"
-msgstr ""
+msgstr "Товары - iStorno"
 
-#: templates/items_list.html:68
+#: templates/items_list.html:14
+msgid "Search..."
+msgstr "Поиск..."
+
+#: templates/items_list.html:69
 msgid "Close"
-msgstr ""
+msgstr "Закрыть"
 
-#: templates/items_list.html:70 templates/search.html:72
+#: templates/items_list.html:71
 msgid "Details"
-msgstr ""
+msgstr "Детали"
 
-#: templates/items_list.html:84
+#: templates/items_list.html:85
 msgid "Free"
-msgstr ""
+msgstr "Бесплатно"
 
-#: templates/items_list.html:113 templates/items_list.html:117
-#: templates/search.html:120 templates/search.html:124
-msgid "Previous"
-msgstr ""
+#: templates/items_list.html:106
+msgid "There are no photos for your request"
+msgstr "Не нашлось изображений по вашему запросу"
 
-#: templates/items_list.html:134 templates/items_list.html:138
-#: templates/search.html:141 templates/search.html:145
-msgid "Next"
-msgstr ""
+#: templates/items_list.html:107
+msgid "Please, search for another photos"
+msgstr "Пожалуйста, попробуйте поискать другие изображения"
 
 #: templates/order_summary.html:5
 msgid "Order - iStorno"
-msgstr ""
+msgstr "Заказ -  iStorno"
 
 #: templates/order_summary.html:10
 msgid "Order items"
-msgstr ""
+msgstr "Товары заказа"
 
 #: templates/order_summary.html:41
 msgid "Unit price"
-msgstr ""
+msgstr "Цена за единицу"
 
 #: templates/order_summary.html:48 templates/order_summary.html:70
 msgid "Subtotal"
-msgstr ""
+msgstr "Промежуточный итог"
 
 #: templates/order_summary.html:68
 msgid "Order summary"
-msgstr ""
+msgstr "Итог заказа"
 
 #: templates/order_summary.html:79
 msgid "Buy"
-msgstr ""
+msgstr "Купить"
 
 #: templates/order_summary.html:88
 msgid "You have not added any items."
-msgstr ""
+msgstr "Вы еще не добавили товар в свою корзину."
 
 #: templates/order_summary.html:89
 msgid "Go to the"
-msgstr ""
+msgstr "Пройдите в секцию"
 
 #: templates/order_summary.html:90
 msgid "PRODUCTS"
-msgstr ""
+msgstr "ТОВАРЫ"
 
 #: templates/order_summary.html:91
 msgid "section, select a product and add it to your cart!"
-msgstr ""
+msgstr ", чтобы выбрать товар и добавить его в корзину!"
 
 #: templates/payment.html:6
 msgid "Payment - iStorno"
-msgstr ""
+msgstr "Оплата - iStorno"
 
 #: templates/payment.html:16
 msgid "Payment"
-msgstr ""
+msgstr "Оплата"
 
-#: templates/payment.html:43
+#: templates/payment.html:44
 msgid "Use default card"
-msgstr ""
+msgstr "Использовать сохр. карту"
 
-#: templates/payment.html:45
+#: templates/payment.html:46
 msgid "Exp"
-msgstr ""
+msgstr "Истек"
 
-#: templates/payment.html:55
+#: templates/payment.html:56
 msgid "Sumbit payment"
-msgstr ""
+msgstr "Подтвердить оплату"
 
-#: templates/payment.html:70
+#: templates/payment.html:59 templates/payment.html:106
+msgid ""
+"\n"
+"                                    By submiting your payment you agree to "
+"proceed your personal data by\n"
+"                                    this website.\n"
+"                                    "
+msgstr ""
+"\n"
+"Продолжив оплату, вы даете свое согласие на обработку персональных данных"
+
+#: templates/payment.html:73
 msgid "Credit or debit card"
-msgstr ""
+msgstr "Кредитная или дебитовая карта"
 
-#: templates/payment.html:82
+#: templates/payment.html:86
 msgid "Save card"
-msgstr ""
+msgstr "Сохранить карту"
 
-#: templates/payment.html:90
+#: templates/payment.html:94
 msgid "I have read and accept"
-msgstr ""
+msgstr "Я прочитал и согласен с"
 
-#: templates/payment.html:98
+#: templates/payment.html:102
 msgid "Submit payment"
-msgstr ""
+msgstr "Подтвердить оплату"
 
-#: templates/payment.html:109
+#: templates/payment.html:117
 msgid "Paypal is easiest way to pay online"
-msgstr ""
+msgstr "Paypal - самый простой способ оплаты онлайн"
 
-#: templates/payment.html:113
+#: templates/payment.html:121
 msgid "Log in and pay"
-msgstr ""
+msgstr " Войти и заплатить"
 
-#: templates/payment.html:131
-msgid "Your order"
+#: templates/payment.html:126
+msgid ""
+"\n"
+"                                By submiting your payment you agree to "
+"proceed your personal data by this\n"
+"                                website.\n"
+"                                "
 msgstr ""
+"\n"
+"Продолжив оплату, вы даете свое согласие на обработку персональных данных"
+
+#: templates/payment.html:143
+msgid "Your order"
+msgstr "Ваш заказ"
 
 #: templates/payment_completed.html:5
 msgid "Completed - iStorno"
-msgstr ""
+msgstr "Покупка завершена - iStorno"
 
 #: templates/payment_completed.html:14
 msgid "Payment successfully proceeded"
-msgstr ""
+msgstr "Оплата успешно совершена"
 
 #: templates/payment_completed.html:15
 msgid "Download images"
-msgstr ""
+msgstr "Загрузить изображение"
 
 #: templates/payment_completed.html:17
 msgid "Return to products"
-msgstr ""
+msgstr "Вернуться к товарам"
 
 #: templates/privacy_policy.html:5
 msgid "Privacy Policy - iStorno"
-msgstr ""
+msgstr "Политика Конфиденцальности - iStorno"
 
-#: templates/search.html:5
-msgid "Search - iStorno"
-msgstr ""
+#~ msgid "English"
+#~ msgstr "Английский"
 
-#: templates/search.html:14
-msgid "Search..."
-msgstr ""
+#~ msgid "Russian"
+#~ msgstr "Русский"
 
-#: templates/search.html:22
-msgid "Results:"
-msgstr ""
+#~ msgid "Previous"
+#~ msgstr "Предыдущая"
 
-#: templates/search.html:102
-msgid "There are no photos for your request"
-msgstr ""
+#~ msgid "Next"
+#~ msgstr "Следующая"
 
-#: templates/search.html:103
-msgid "Please, search for another photos"
-msgstr ""
+#~ msgid "Search - iStorno"
+#~ msgstr "Поиск - iStorno"
+
+#~ msgid "Results:"
+#~ msgstr "Результаты:"

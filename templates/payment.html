@@ -34,13 +34,14 @@
 
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="nav-tab-card">
-                        
+
                         {% if card %}
                         <div style="padding: 5px 30px;">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" name="use_default_card"
                                     id="use_default_card">
-                                <label class="custom-control-label" for="use_default_card">{% trans 'Use default card' %}:
+                                <label class="custom-control-label"
+                                    for="use_default_card">{% trans 'Use default card' %}:
                                     **** **** **** {{ card.last4 }}
                                     <span>{% trans 'Exp' %}: {{ card.exp_month }}/{{ card.exp_year }}</span></label>
                             </div>
@@ -55,8 +56,10 @@
                                     <button id="stripeBtn">{% trans 'Sumbit payment' %}</button>
                                 </div>
                                 <small><strong>{% trans 'Note' %}: </strong>
-                                    {% trans 'By submiting your payment you agree to proceed your personal data by
-                                    this website.' %}
+                                    {% blocktrans %}
+                                    By submiting your payment you agree to proceed your personal data by
+                                    this website.
+                                    {% endblocktrans %}
                                 </small>
                             </form>
                         </div>
@@ -79,7 +82,8 @@
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" name="save"
                                             id="save_card_info">
-                                        <label class="custom-control-label" for="save_card_info">{% trans 'Save card' %}</label>
+                                        <label class="custom-control-label"
+                                            for="save_card_info">{% trans 'Save card' %}</label>
                                     </div>
                                 </div>
                                 <div class="stripe-form-row mt-1 ml-2 mb-0">
@@ -98,8 +102,12 @@
                                     <button id="stripeBtn">{% trans 'Submit payment' %}</button>
                                 </div>
                                 <small><strong>{% trans 'Note' %}: </strong>
-                                    {% trans 'By submiting your payment you agree to proceed your personal data by
-                                    this website.' %}
+
+                                    {% blocktrans %}
+                                    By submiting your payment you agree to proceed your personal data by
+                                    this website.
+                                    {% endblocktrans %}
+
                                 </small>
                             </form>
                         </div>
@@ -114,8 +122,12 @@
                                 </button>
                             </form>
                             <small><strong>{% trans 'Note' %}: </strong>
-                                {% trans 'By submiting your payment you agree to proceed your personal data by this
-                                website.' %}
+
+                                {% blocktrans %}
+                                By submiting your payment you agree to proceed your personal data by this
+                                website.
+                                {% endblocktrans %}
+
                             </small>
                         </div>
                     </div>

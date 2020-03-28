@@ -3,7 +3,7 @@ from django.urls import path
 from .views import (
     ItemsView, OrderSummaryView, SearchResultsView, add_to_cart,
     PaymentView, home, item_detail, privacy_policy, remove_from_cart,
-    category_list, account_info, download_file, purchases_list, saved_cards_list)
+    category_list, account_info, download_zip, purchases_list, saved_cards_list, download_file)
 
 app_name = 'core'
 
@@ -19,7 +19,8 @@ urlpatterns = [
     path('search/', SearchResultsView.as_view(), name='search'),
     path('category-list/<slug>/', category_list, name='category-list'),
     path('accounts/general/', account_info, name='account-info'),
-    path('download/', download_file, name='download'),
+    path('download/zip/', download_zip, name='download'),
     path('accounts/purchases/', purchases_list, name='purchases'),
     path('accounts/saved-cards/', saved_cards_list, name='saved-cards'),
+    path('download/file/<item_id>', download_file, name='download-file')
 ]

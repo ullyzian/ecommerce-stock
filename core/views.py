@@ -1,4 +1,8 @@
 from zipfile import ZipFile
+import requests
+import os
+import stripe
+import boto3
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -6,14 +10,32 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.generic import ListView, View
-from django.http import JsonResponse, FileResponse
+from django.http import JsonResponse, FileResponse, HttpResponse
 from django.conf import settings
-import stripe
+
 from .models import Item, Order, OrderItem, Category, Payment, UserProfile
 from .forms import PaymentForm
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+
+
+def download_file(request, item_id):
+    item = Item.objects.get(id=item_id)
+    url = item.image_paid.url
+    filename = url[url.rfind("/") + 1:].split("?")[0]
+    filepath = 'media/images/' + filename
+    file_response = requests.get(url)
+
+    f1 = open(filepath, 'wb')
+    f1.write(file_response.content)
+    f1.close()
+
+    response = HttpResponse(open(filepath, 'rb'),
+                            content_type="application/force-download")
+    response['Content-Disposition'] = f'attachment;filename="{filename}"'
+    os.remove(filepath)
+    return response
 
 
 def home(request):
@@ -76,12 +98,30 @@ class PaymentView(LoginRequiredMixin, View):
 
     def post(self, *args, **kwargs):
         order = Order.objects.get(user=self.request.user, ordered=False)
-        zip_path = f'media/zip/{order.user}-{order.id}.zip'
         zip_filename = f'{order.user}-{order.id}.zip'
+        zip_path = 'media/zip/' + zip_filename
+        s3Resource = boto3.resource('s3')
 
         with ZipFile(zip_path, 'w') as zipObj:
             for order_item in order.items.all():
-                zipObj.write(order_item.item.image_paid.url[1:])
+                url = order_item.item.image_paid.url
+                filename = url[url.rfind("/") + 1:].split("?")[0]
+                filepath = 'media/images/' + filename
+                file_response = requests.get(url)
+
+                f1 = open(filepath, 'wb')
+                f1.write(file_response.content)
+                f1.close()
+
+                zipObj.write(filepath)
+                os.remove(filepath)
+
+        s3Resource.meta.client.upload_file(
+            zip_path,
+            settings.AWS_STORAGE_BUCKET_NAME,
+            f'zip/{zip_filename}'
+        )
+        order.zip = f'/zip/{zip_filename}'
 
         payment_method = self.request.POST.get('payment', '')
         if (payment_method == 'paypal'):
@@ -177,17 +217,24 @@ class PaymentView(LoginRequiredMixin, View):
 
 
 @login_required
-def download_file(request):
+def download_zip(request):
     order_qs = Order.objects.filter(user=request.user, ordered=True)
     if order_qs.exists():
         order = order_qs.order_by('-id')[0]
-    zip_path = f'{settings.BASE_DIR}/media/zip/{order.user}-{order.id}.zip'
-    zip_file = open(zip_path, 'rb')
-    return FileResponse(zip_file)
+    url = order.zip.url
+    zip_name = url[url.rfind("/") + 1:].split("?")[0]
+    zip_path = 'media/zip/' + zip_name
+    file_response = requests.get(url)
 
+    f1 = open(zip_path, 'wb')
+    f1.write(file_response.content)
+    f1.close()
 
-def download_free(request):
-    pass
+    response = HttpResponse(open(zip_path, 'rb'),
+                            content_type="application/force-download")
+    response['Content-Disposition'] = f'attachment;filename="{zip_name}"'
+    os.remove(zip_path)
+    return response
 
 
 @login_required
@@ -229,7 +276,7 @@ def category_list(request, slug):
         'object_list': Item.objects.filter(category__exact=category),
         'categories': Category.objects.all()
     }
-    return render(request, 'search.html', context)
+    return render(request, 'items_list.html', context)
 
 
 def filter_category(request):
@@ -242,7 +289,7 @@ def filter_category(request):
 
 class SearchResultsView(ListView):
     model = Item
-    template_name = 'search.html'
+    template_name = 'items_list.html'
 
     def get_queryset(self):
         query = self.request.GET.get('q')
