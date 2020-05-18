@@ -50,6 +50,7 @@ class Item(models.Model):
     slug = models.SlugField()
 
     class Meta:
+        verbose_name_plural = _("Items")
         ordering = ['-id']
 
     def __str__(self):
@@ -74,6 +75,9 @@ class OrderItem(models.Model):
     def __str__(self):
         return self.item.title
 
+    class Meta:
+        verbose_name_plural = _("Order items")
+
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -95,6 +99,9 @@ class Order(models.Model):
             total += order_item.item.price
         return total
 
+    class Meta:
+        verbose_name_plural = _("Orders")
+
 
 class Payment(models.Model):
     stripe_charge_id = models.CharField(max_length=50)
@@ -105,6 +112,9 @@ class Payment(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    class Meta:
+        verbose_name_plural = _("Payments")
 
 
 def userprofile_receiver(sender, instance, created, *args, **kwargs):

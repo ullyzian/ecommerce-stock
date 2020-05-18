@@ -6,3 +6,7 @@ $(document).ready(function () {
     }, 2000);
 
 });
+
+function change(value) {
+    document.getElementsByName('language').value = value
+}
